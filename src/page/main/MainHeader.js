@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { VscBell } from "react-icons/vsc";
 import { AiOutlineSearch } from "react-icons/ai";
 import MainNavModal from "./MainNavModal";
 const HeaderBox = styled.div`
@@ -31,6 +30,9 @@ const HeaderBox = styled.div`
     /* border: 1px solid #e2e3e3; */
   }
 `;
+const HeaderPadding = styled.div`
+  height: 50px;
+`
 const MainBarNav = styled.div`
   width: 100%;
   height: 100%;
@@ -152,55 +154,62 @@ function MainHeader() {
   // };
 
   return (
-    <HeaderBox>
-      <div className="main-bar">
-        <MainBarNav>
-          <MainMenu>
-            <div className="main-menu-logo">
-              <button onMouseEnter={()=>{setNavMenuOn(true)}}>
-                <img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ficon-menu.png&w=17&q=75" alt="menu"></img>
-              </button>
-              <Link to={"/"}>
-                <img className="header-logo" src="./media/logo.png"></img>
-              </Link>
-            </div>
-          </MainMenu>
-          <MainNav>
-            {menuData.map((e) => {
-              return (
-                <li
-                key={e}
-                  // className={blurOn && `list-active`}
+    <>
+      <HeaderBox>
+        <div className="main-bar">
+          <MainBarNav>
+            <MainMenu>
+              <div className="main-menu-logo">
+                <button
+                  onMouseEnter={() => {
+                    setNavMenuOn(true);
+                  }}
                 >
-                  <Link to={"/"}>{e}</Link>
-                </li>
-              );
-            })}
-            {/* <li>
+                  <img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ficon-menu.png&w=17&q=75" alt="menu"></img>
+                </button>
+                <Link to={"/"}>
+                  <img className="header-logo" src="./media/logo.png" alt="로고"/>
+                </Link>
+              </div>
+            </MainMenu>
+            <MainNav>
+              {menuData.map((e) => {
+                return (
+                  <li
+                    key={e}
+                    // className={blurOn && `list-active`}
+                  >
+                    <Link to={"/"}>{e}</Link>
+                  </li>
+                );
+              })}
+              {/* <li>
               <Link to={"/"}>Wanted</Link>
             </li> */}
-          </MainNav>
-          <HeaderAside>
-            <AsideList>
-              <li>
-                <AiOutlineSearch style={{ fontSize: "18px", marginTop: "3px" }}></AiOutlineSearch>
-              </li>
-              {/* <li>
+            </MainNav>
+            <HeaderAside>
+              <AsideList>
+                <li>
+                  <AiOutlineSearch style={{ fontSize: "18px", marginTop: "3px" }}></AiOutlineSearch>
+                </li>
+                {/* <li>
                 <VscBell></VscBell>
               </li> */}
-              <li>
-                <button>회원가입/로그인</button>
-              </li>
-              <li className="header-service-link">
-                <Link to={"/"}>기업 서비스</Link>
-              </li>
-            </AsideList>
-          </HeaderAside>
-        </MainBarNav>
-        {/* 메인메뉴 모달 컴포넌트 */}
-        {navMenuOn && <MainNavModal setNavMenuOn={setNavMenuOn} />} 
-      </div>
-    </HeaderBox>
+                <li>
+                  <button>회원가입/로그인</button>
+                </li>
+                <li className="header-service-link">
+                  <Link to={"/"}>기업 서비스</Link>
+                </li>
+              </AsideList>
+            </HeaderAside>
+          </MainBarNav>
+          {/* 메인메뉴 모달 컴포넌트 */}
+          {navMenuOn && <MainNavModal setNavMenuOn={setNavMenuOn} />}
+        </div>
+      </HeaderBox>
+      <HeaderPadding> </HeaderPadding>
+    </>
   );
 }
 

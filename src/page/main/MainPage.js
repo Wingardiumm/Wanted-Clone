@@ -1,14 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
-
-const Test = styled.div`
-
+import { SimpleSlider } from '../../component/simpleSlider'
+import MainContentSection from './MainContentSection'
+const MainPageWrapper = styled.div`
+  background-color: #fff;
+  @media (min-width:1200px) {
+    padding-top: 25px;
+  }
 `
 function MainPage() {
   return (
-    <Test>
-        jjjjjjdsdsadsad
-    </Test>
+    <MainPageWrapper>
+      <SimpleSlider/>
+      <MainContentSection/>
+    </MainPageWrapper>
   )
 }
 
