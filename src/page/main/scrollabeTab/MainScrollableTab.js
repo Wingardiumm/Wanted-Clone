@@ -26,18 +26,24 @@ function MainScrollableTab() {
   const [value, setValue] = useState(0);
   const style = "";
   const handleChange = (e, newValue) => {
+    console.log(e, newValue)
     setValue(newValue);
   };
   return (
-    <Container>
+    <Container
+      sx={{
+        padding: "0 !important",
+      }}
+    >
       <Box
         sx={{
           display: "flex",
           flexGrow: 1,
           px: { xs: 0, md: 2 },
           alignItems: "center",
-          mt: 2,
-          mb: 2,
+          mt: "30px",
+          mb: "30px",
+          padding: "0 !important",
         }}
       >
         <Tabs
@@ -46,10 +52,19 @@ function MainScrollableTab() {
           variant="scrollable"
           scrollButtons
           sx={{
+            display: "flex",
+            flexGrow: 1,
+            gap: "10px",
             [`& .${tabsClasses.scrollButtons}`]: {
+              
               "&.Mui-disabled": { opacity: 0 },
             },
-            "& button:active": { borderColor: "#36f" },
+            [`& .MuiTabs-flexContainer`]: {
+              display: "flex",
+              flexGrow: 1,
+              gap: "10px",
+            },
+            // "& button:active": { borderColor: "#36f" },
             "& button:hover": { backgroundColor: "#ececec" },
           }}
         >
@@ -62,7 +77,7 @@ function MainScrollableTab() {
                 fontWeight: "600!important",
                 fontSize: "15px!important",
                 lineHeight: "146.7%!important",
-                ["-ms-flex-negative"]: 0,
+                // ["-ms-flex-negative"]: 0,
                 flexShrink: 0,
                 color: "#888!important",
                 borderColor: "#ececec!important",
@@ -72,15 +87,6 @@ function MainScrollableTab() {
                 position: "relative!important",
                 borderRadius: "25px",
                 backgroundColor: "#fff",
-                // "span": {
-                //   width: "100%",
-                //   fontSize: "inherit",
-                //   fontWeight: "inherit",
-                //   display: "inherit",
-                //   alignItems: "inherit",
-                //   justifyContent: "inherit",
-                //   color: "inherit",
-                // },
               }}
               key={tab.id}
               label={tab.name}

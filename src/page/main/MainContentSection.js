@@ -1,15 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import CarrerImgGrid from "./CarrerImgGrid";
+import MainScrollableNav from "./scrollabeTab/MainScrollableNav";
 import MainScrollableTab from "./scrollabeTab/MainScrollableTab";
 
 const MainSectionWrapper = styled.div`
   position: relative;
   scroll-margin-top: 4px;
   padding: 60px;
+  
 `;
 const MainContentWrapper = styled.div`
   width: 1060px;
   margin: 0 auto;
+
   @media (min-width: 1200px) {
     max-width: 1060px;
     width: 87.72%;
@@ -93,7 +97,9 @@ function MainContentSection() {
             </button>
           </MainTitle>
         </MainContentTitleWrapper>
-        <MainScrollableTab/>
+        <MainScrollableNav /> {/* 커리어 구분 탭 */}
+        <CarrerImgGrid />
+        {/**커리어 목록 */}
       </MainContentWrapper>
     </MainSectionWrapper>
   );
