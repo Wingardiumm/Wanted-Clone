@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
-import MainNavModal from "./MainNavModal";
+import MainNavModal from "../main/section/careerSection/MainNavModal";
 const HeaderBox = styled.div`
   padding-right: initial;
   width: 100%;

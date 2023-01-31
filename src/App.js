@@ -3,9 +3,11 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import MainLayOut from "./component/MainLayOut";
+import NotFooterLayOut from "./component/NotFooterLayOut";
 import LoginPage from "./page/login/LoginPage";
 import SingUpPage from "./page/login/SingUpPage";
 import MainPage from "./page/main/MainPage";
+import ResumePage from "./page/resume/ResumePage";
 import GlobalStyle from "./style/GlobalStyle";
 
 function App() {
@@ -24,20 +26,16 @@ function App() {
   
     return () => window.removeEventListener('resize', screenSize);
   }, [screenSize]);
-  // function setScreenSize() {
-  //   let vh = window.innerHeight * 0.01;
-  //   document.documentElement.style.setProperty("--vh", `${vh}px`);
-  // }
-  // useEffect(() => {
-  //   setScreenSize();
-  //   console.log(window.innerHeight)
-  // },[window.innerHeight]);
+
   return (
     <React.Fragment>
       <GlobalStyle></GlobalStyle>
       <Routes>
         <Route element={<MainLayOut />}>
           <Route path="/" element={<MainPage></MainPage>} />
+        </Route>
+        <Route element={<NotFooterLayOut/>}>
+          <Route path="/resume" element={<ResumePage/>}/>
         </Route>
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/signUp" element={<SingUpPage/>}/>

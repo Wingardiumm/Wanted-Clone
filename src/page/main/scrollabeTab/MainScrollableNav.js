@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-// import "../../../component/simpleSlider/slick.css";
-// import "../../../component/simpleSlider/slick-theme.css";
 import styled from "styled-components";
 import Slider from "react-slick";
 import mainTabData from "../../../data/mainTabData";
@@ -62,6 +60,7 @@ function MainScrollableNav() {
     slidesToScroll: 3,
     variableWidth: true,
     slidePerRow: 1,
+    // arrow: false,
     // focusOnSelect:true,
     prevArrow: <SamplePrevArrow />,
     nextArrow: <SampleNextArrow />,
@@ -71,7 +70,7 @@ function MainScrollableNav() {
     <SliderContainer>
       <ScrollableNavSlider {...settings}>
         {tabList.map((tab) => {
-          return <TabList tabData={tab} onClick={tabActiveHandling} />;
+          return <TabList key={tab.id} tabData={tab} onClick={tabActiveHandling} />;
         })}
       </ScrollableNavSlider>
       <AllTabShowBtn />
@@ -85,7 +84,7 @@ function SamplePrevArrow(props) {
 }
 function SampleNextArrow(props) {
   const { className, onClick } = props;
-//   console.log(props);
+  //   console.log(props);
   return onClick !== null && <TabNextBtn className={className} onClick={onClick} />;
 }
 

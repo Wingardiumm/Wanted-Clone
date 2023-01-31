@@ -401,16 +401,17 @@ const SignUpBtnOverlay = styled.div`
   z-index: -1;
 `;
 const SignUpBtnOverlay2 = styled.div`
-      position: absolute;
-    left: 0px;
-    right: 0px;
-    bottom: 60px;
-    height: 30px;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, var(--theme-palette-colors-contents-bg) 100%);
-    z-index: -1;
-    pointer-events: none;
-`
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 60px;
+  height: 30px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, var(--theme-palette-colors-contents-bg) 100%);
+  z-index: -1;
+  pointer-events: none;
+`;
 function SingUpPage() {
+  
   return (
     <SingUpPageBackground>
       <SingUpWrapper>
@@ -540,7 +541,7 @@ function SingUpPage() {
                 가입하기 버튼은 sticky로 고정되어 있고 form 아랫부분이 밑으로 내려가면서 부드럽게 안보여지는 css가 있음 
                 또한 스크롤링 가능*/}
                 <SignUpBtnOverlay />
-                <SignUpBtnOverlay2/>
+                <SignUpBtnOverlay2 />
                 <SignUpBtn>
                   <span>가입하기</span>
                 </SignUpBtn>

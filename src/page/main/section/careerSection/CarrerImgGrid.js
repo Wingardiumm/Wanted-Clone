@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CareerItem from "./CareerItem";
-import careerData from "../../data/careerData";
+import careerData from "../../../../data/careerData";
 import _ from "lodash";
 
 const CareerList = styled.ul`
