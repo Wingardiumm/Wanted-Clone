@@ -84,7 +84,7 @@ function RecruitInfoLinks() {
   return (
     <RecruitInfoWrapper>
       {recruitData.map(({ id, title, Image }) => (
-        <RecruitInfoItemContainer>
+        <RecruitInfoItemContainer key={id}>
           <StyledInfoLink to={"/"}>
             <Image />
           </StyledInfoLink>

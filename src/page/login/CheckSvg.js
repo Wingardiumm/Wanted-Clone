@@ -17,13 +17,13 @@ const CheckSvgWrapper = styled.span`
   width: 15px;
   margin-right: 10px;
 `;
-function CheckSvg() {
+function CheckSvg({checkOn = false}) {
   return (
     <CheckSvgWrapper>
       <svg viewBox="0 0 12 8" className="css-1h47l4s">
         <path
           d="M1.5 4L4.5 7L10.5 1"
-          stroke="var(--theme-palette-colors-gray-300)"
+          stroke={`var(--theme-palette-colors-${checkOn ? 'blue-400' : 'gray-300'})`}
           fill="none"
           strokeWidth="1.5"
         ></path>

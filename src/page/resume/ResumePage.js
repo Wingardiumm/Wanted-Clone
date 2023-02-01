@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import TypeTestBanner from "../main/banner/TypeTestBanner";
 import ResumeBanner from "./ResumeBanner";
 
 const ResumeListContainer = styled.div`
@@ -15,7 +14,6 @@ function ResumePage() {
   return (
     <ResumeListContainer>
         <ResumeBanner/>
-      {/* <TypeTestBanner /> */}
     </ResumeListContainer>
   );
 }

@@ -5,7 +5,6 @@ import "./App.css";
 import MainLayOut from "./component/MainLayOut";
 import NotFooterLayOut from "./component/NotFooterLayOut";
 import LoginPage from "./page/login/LoginPage";
-import SingUpPage from "./page/login/SingUpPage";
 import MainPage from "./page/main/MainPage";
 import ResumePage from "./page/resume/ResumePage";
 import GlobalStyle from "./style/GlobalStyle";
@@ -38,7 +37,6 @@ function App() {
           <Route path="/resume" element={<ResumePage/>}/>
         </Route>
         <Route path="/login" element={<LoginPage/>}/>
-        <Route path="/signUp" element={<SingUpPage/>}/>
       </Routes>
     </React.Fragment>
   );

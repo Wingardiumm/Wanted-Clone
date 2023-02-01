@@ -24,7 +24,7 @@ function FooterSnsLink() {
   return (
     <SnsLinkWrapper>
       {IconData.map((data) => (
-        <Link to={"/"}>{data.icon}</Link>
+        <Link to={"/"} key={data.id}>{data.icon}</Link>
       ))}
       {/* <BsApple />
       <FaGooglePlay />

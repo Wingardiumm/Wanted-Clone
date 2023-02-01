@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
 import MainNavModal from "../main/section/careerSection/MainNavModal";
+import axios from "axios";
+import Profile from "./Profile";
 const HeaderBox = styled.div`
   padding-right: initial;
   width: 100%;
@@ -32,7 +34,7 @@ const HeaderBox = styled.div`
 `;
 const HeaderPadding = styled.div`
   height: 50px;
-`
+`;
 const MainBarNav = styled.div`
   width: 100%;
   height: 100%;
@@ -101,17 +103,28 @@ const AsideList = styled.ul`
   display: flex;
   flex-direction: row;
   /* padding: 10px 0; */
+
   align-items: center;
   li {
     /* margin-right: 10px; */
     height: inherit;
     display: inline-block;
+    position: relative;
+    padding: 0 5px;
+    font-size: 14px;
+    color: #333;
+    font-weight: 600;
+    line-height: 1;
   }
   button {
     font-size: 13px;
     line-height: 20px;
     font-weight: 600;
     vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
   }
   .header-service-link {
     display: inline-flex;
@@ -142,6 +155,8 @@ function MainHeader() {
   // const [blurOn, setBlurOn] = useState(false);
   // const [clickOn, setClickOn] = useState(false);
   const [navMenuOn, setNavMenuOn] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
 
   // const menuMouseHandling = (e) => {
   //   if (e.type === "mouseenter") {
@@ -152,7 +167,27 @@ function MainHeader() {
   //     // setClickOn(true);
   //   }
   // };
-
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    const userId = localStorage.getItem("user_id");
+    if (jwt) {
+      setIsLogin(true);
+      axios
+        .get(`https://dev.risingserver13forever.shop/app/users/${userId}`, {
+          headers: {
+            "x-access-token": jwt,
+          },
+        })
+        .then((Response) => {
+          console.log(Response.data);
+        })
+        .catch((Error) => {
+          console.log(Error);
+        });
+    } else {
+      setIsLogin(false);
+    }
+  }, []);
   return (
     <>
       <HeaderBox>
@@ -168,7 +203,7 @@ function MainHeader() {
                   <img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ficon-menu.png&w=17&q=75" alt="menu"></img>
                 </button>
                 <Link to={"/"}>
-                  <img className="header-logo" src="./media/logo.png" alt="로고"/>
+                  <img className="header-logo" src="./media/logo.png" alt="로고" />
                 </Link>
               </div>
             </MainMenu>
@@ -190,14 +225,21 @@ function MainHeader() {
             <HeaderAside>
               <AsideList>
                 <li>
-                  <AiOutlineSearch style={{ fontSize: "18px", marginTop: "3px" }}></AiOutlineSearch>
+                  <button type="button">
+                    <AiOutlineSearch style={{ fontSize: "18px", marginTop: "3px" }}></AiOutlineSearch>
+                  </button>
                 </li>
+
+                {isLogin ? (
+                  <Profile />
+                ) : (
+                  <li>
+                    <button onClick={() => navigate("/login")}>회원가입/로그인</button>
+                  </li>
+                )}
                 {/* <li>
-                <VscBell></VscBell>
-              </li> */}
-                <li>
-                  <button>회원가입/로그인</button>
-                </li>
+                    <button onClick={()=>navigate('/login')}>회원가입/로그인</button>
+                  </li> */}
                 <li className="header-service-link">
                   <Link to={"/"}>기업 서비스</Link>
                 </li>
