@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { VscBell } from "react-icons/vsc";
 import styled from "styled-components";
 import ProfileModal from "./ProfileModal";
@@ -34,7 +34,12 @@ const ProfileImgBackground = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
 `;
-function Profile() {
+function Profile({ setProfileModalOn, profileModalOn,setNavMenuOn }) {
+  const moadlHandling = (e) => {
+    e.stopPropagation();
+    setProfileModalOn(!profileModalOn);
+    setNavMenuOn(false);
+  };
   return (
     <>
       <li>
@@ -52,13 +57,13 @@ function Profile() {
         </button>
       </li>
       <li>
-        <ProfileImgBtn type="button">
+        <ProfileImgBtn type="button" onClick={(e)=>moadlHandling(e)}>
           <ProfileImgWrapper>
             <ProfileImgBackground />
           </ProfileImgWrapper>
         </ProfileImgBtn>
         <ProfileNewImg></ProfileNewImg>
-        <ProfileModal/>
+        {profileModalOn && <ProfileModal />}
       </li>
     </>
   );

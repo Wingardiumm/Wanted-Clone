@@ -52,6 +52,9 @@ const MainNav = styled.ul`
   margin: 0;
   height: inherit;
   text-align: center;
+  li:nth-child(${(props)=>props.presentNav}) {
+    box-shadow: inset 0 -2px #258bf7;
+  }
   li {
     /* margin-right: 10px; */
     height: inherit;
@@ -151,22 +154,11 @@ const AsideList = styled.ul`
 `;
 function MainHeader() {
   const menuData = ["채용", "이벤트", "직군별 연봉", "이력서", "커뮤니티", "프리랜서", "AI합격예측"];
-
-  // const [blurOn, setBlurOn] = useState(false);
-  // const [clickOn, setClickOn] = useState(false);
+  const [profileModalOn, setProfileModalOn] = useState(false);
+  const [presentNav,setPresentNav] = useState(3); 
   const [navMenuOn, setNavMenuOn] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
-
-  // const menuMouseHandling = (e) => {
-  //   if (e.type === "mouseenter") {
-  //     setBlurOn(true);
-  //   } else if (e.type === "mouseleave") {
-  //     setBlurOn(false);
-  //   } else if (e.type === "click") {
-  //     // setClickOn(true);
-  //   }
-  // };
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     const userId = localStorage.getItem("user_id");
@@ -188,9 +180,12 @@ function MainHeader() {
       setIsLogin(false);
     }
   }, []);
+  useEffect(()=>{
+    // setPresentNav(localStorage.getItem('present_nav'))
+  },[])
   return (
     <>
-      <HeaderBox>
+      <HeaderBox onClick={()=>setProfileModalOn(false)}>
         <div className="main-bar">
           <MainBarNav>
             <MainMenu>
@@ -198,6 +193,7 @@ function MainHeader() {
                 <button
                   onMouseEnter={() => {
                     setNavMenuOn(true);
+                    setProfileModalOn(false);
                   }}
                 >
                   <img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ficon-menu.png&w=17&q=75" alt="menu"></img>
@@ -207,20 +203,16 @@ function MainHeader() {
                 </Link>
               </div>
             </MainMenu>
-            <MainNav>
+            <MainNav presentNav={presentNav}>
               {menuData.map((e) => {
                 return (
                   <li
                     key={e}
-                    // className={blurOn && `list-active`}
                   >
                     <Link to={"/"}>{e}</Link>
                   </li>
                 );
               })}
-              {/* <li>
-              <Link to={"/"}>Wanted</Link>
-            </li> */}
             </MainNav>
             <HeaderAside>
               <AsideList>
@@ -231,15 +223,12 @@ function MainHeader() {
                 </li>
 
                 {isLogin ? (
-                  <Profile />
+                  <Profile setProfileModalOn={setProfileModalOn} profileModalOn={profileModalOn} setNavMenuOn={setNavMenuOn}/>
                 ) : (
                   <li>
                     <button onClick={() => navigate("/login")}>회원가입/로그인</button>
                   </li>
                 )}
-                {/* <li>
-                    <button onClick={()=>navigate('/login')}>회원가입/로그인</button>
-                  </li> */}
                 <li className="header-service-link">
                   <Link to={"/"}>기업 서비스</Link>
                 </li>

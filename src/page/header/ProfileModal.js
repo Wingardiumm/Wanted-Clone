@@ -44,13 +44,36 @@ const ProfileModalCustom = styled.div`
 `;
 const ListWrapper = styled.ul`
   padding-top: 14px;
+  li:nth-child(2):after,
+  li:nth-child(6):after {
+    content: "";
+    display: block;
+    margin: 9px 7px;
+    height: 1px;
+    background-color: #ececec;
+    box-sizing: border-box;
+  }
+  li:nth-child(3),
+  li:nth-child(7) {
+    margin-top: 18px;
+  }
+  li:last-child {
+    border: 0;
+    margin-top: 9px;
+    background-color: #f7f7f7;
+    overflow: hidden;
+    height: 50px !important;
+    border-radius: 0 0 10px 10px;
+    border-top: 1px solid #ececec;
+  }
 `;
 const ProfileItem = styled.li`
   height: 34px !important;
   width: 100%;
-
-`;
-const ProfileListLink = styled(Link)`
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  a ,button{
     display: flex !important;
     align-items: center;
     justify-content: center;
@@ -59,29 +82,41 @@ const ProfileListLink = styled(Link)`
     line-height: normal !important;
     padding: 8px !important;
     width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
     span {
+      font-weight: 500;
+      /* line-height: normal !important; */
+      /* padding: 8px !important; */
+      width: 100%;
       position: relative;
     }
-`
+  }
+`;
 function ProfileModal() {
+    const logout =()=>{
+        localStorage.removeItem('jwt');
+        localStorage.removeItem('user_id');
+        window.location.replace('/')
+    }
   return (
     <ModalWrapper>
       <ProfileModalListWrapper>
         <ListWrapper>
-          <ProfileItem>
-            {profileModalData.map((data) => {
-              let section = false;
-              if (data.section) {
-                section = true;
-              } else {
-                section = false;
-              }
-              return (
-                <ProfileListLink key={data.id} to={"/"} sectionCheck={section}>
+          {profileModalData.map((data) => {
+            return (
+              <ProfileItem key={data.id}>
+                <Link to={"/"}>
                   <span>{data.name}</span>
-                </ProfileListLink>
-              );
-            })}
+                </Link>
+              </ProfileItem>
+            );
+          })}
+          <ProfileItem>
+            <button type="button" onClick={logout}>
+                <span>로그아웃</span>
+            </button>
           </ProfileItem>
         </ListWrapper>
       </ProfileModalListWrapper>

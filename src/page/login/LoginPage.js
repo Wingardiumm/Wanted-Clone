@@ -50,8 +50,8 @@ function LoginPage() {
     <LoginPageBackground>
       <LoginBoxWrapper>
         <LoginBox>
-          {signUpPageOn && <SignUpForm/>}
           {signInPageOn && <SignInForm />}
+          {signUpPageOn && <SignUpForm/>}
           {inputPasswordPageOn &&<InputSignInPassword />}
         </LoginBox>
       </LoginBoxWrapper>

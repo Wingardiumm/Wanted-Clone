@@ -13,7 +13,9 @@ const ResumeBannerWrapper = styled.div`
   overflow: hidden;
 `;
 function ResumeBanner() {
-  return <ResumeBannerWrapper></ResumeBannerWrapper>;
+  return <ResumeBannerWrapper>
+    
+  </ResumeBannerWrapper>;
 }
 
 export default ResumeBanner;

@@ -324,11 +324,11 @@ function SignInForm() {
       })
       .then((Response) => {
         console.log(Response.data.code);
-        if (Response.data.code === 3003) {
+        if (Response.data.code === 3003) { //회원가입 이동
           dispatch(setSignUpPageOn(true));
           dispatch(setInputPasswordPageOn(false));
           dispatch(setSignInPageOn(false));
-        } else if (Response.data.code === 1001) {
+        } else if (Response.data.code === 1001) { //비밀번호 입력
           dispatch(setInputPasswordPageOn(true));
           dispatch(setSignInPageOn(false));
           dispatch(setSignUpPageOn(false));

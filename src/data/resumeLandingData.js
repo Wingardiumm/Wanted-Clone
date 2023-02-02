@@ -1,0 +1,37 @@
+export const resumeLandingSecondSectionData = [
+    {
+        id:1,
+        title: "이력서 하나로 모든 준비 끝",
+        content1: "이력서 작성부터 지원까지 한 곳에서!",
+        content2: "회사별 양식에 맞출 필요 없이 하나의 이력서만 작성하세요.",
+        notice: "",
+        img_path: "https://static.wanted.co.kr/images/userweb/resume_intro/resume_advantage_01.png",
+        height: "312" ,
+    },
+    {
+        id:2,
+        title: "완성도를 높여주는 이력서 코칭",
+        content1: "이력서 코칭*으로 서류 합격률 30% UP",
+        content2: "300만 합격 데이터를 분석해 합·불합격 단어를 알려드려요.",
+        notice: "*일부 직군에서는 사용 제한, 추후 확대 예정",
+        img_path: "https://static.wanted.co.kr/images/userweb/resume_intro/resume_advantage_02.png",
+        height: "256" ,
+    },
+    {
+        id:3,
+        title: "이력서만 등록해도 찾아오는 면접 제안",
+        content1: "매치업은 서류 전형 없이 바로 면접 진행!",
+        content2: "<br/> 채용담당자가 직접 면접을 제안합니다.",
+        notice: "",
+        img_path: "https://static.wanted.co.kr/images/userweb/resume_intro/resume_advantage_03.png",
+        height: "282" ,
+    },
+    {
+        id:4,
+        title: "언제 어디서나 자유롭게 작성",
+        content1: "주말엔 노트북, 출퇴근길엔 스마트폰으로.",
+        content2: "자유롭게 작성하고 필요할 땐 PDF로 저장하세요.",
+        notice: "",
+        img_path: "https://static.wanted.co.kr/images/userweb/resume_intro/resume_advantage_04.png",
+    },
+]
