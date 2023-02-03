@@ -52,7 +52,7 @@ const MainNav = styled.ul`
   margin: 0;
   height: inherit;
   text-align: center;
-  li:nth-child(${(props)=>props.presentNav}) {
+  li:nth-child(${(props) => props.presentNav}) {
     box-shadow: inset 0 -2px #258bf7;
   }
   li {
@@ -155,7 +155,10 @@ const AsideList = styled.ul`
 function MainHeader() {
   const menuData = ["채용", "이벤트", "직군별 연봉", "이력서", "커뮤니티", "프리랜서", "AI합격예측"];
   const [profileModalOn, setProfileModalOn] = useState(false);
-  const [presentNav,setPresentNav] = useState(3); 
+  const [
+    presentNav,
+    // ,setPresentNav
+  ] = useState(3);
   const [navMenuOn, setNavMenuOn] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
@@ -180,12 +183,12 @@ function MainHeader() {
       setIsLogin(false);
     }
   }, []);
-  useEffect(()=>{
+  useEffect(() => {
     // setPresentNav(localStorage.getItem('present_nav'))
-  },[])
+  }, []);
   return (
     <>
-      <HeaderBox onClick={()=>setProfileModalOn(false)}>
+      <HeaderBox onClick={() => setProfileModalOn(false)}>
         <div className="main-bar">
           <MainBarNav>
             <MainMenu>
@@ -206,9 +209,7 @@ function MainHeader() {
             <MainNav presentNav={presentNav}>
               {menuData.map((e) => {
                 return (
-                  <li
-                    key={e}
-                  >
+                  <li key={e}>
                     <Link to={"/"}>{e}</Link>
                   </li>
                 );
@@ -223,7 +224,7 @@ function MainHeader() {
                 </li>
 
                 {isLogin ? (
-                  <Profile setProfileModalOn={setProfileModalOn} profileModalOn={profileModalOn} setNavMenuOn={setNavMenuOn}/>
+                  <Profile setProfileModalOn={setProfileModalOn} profileModalOn={profileModalOn} setNavMenuOn={setNavMenuOn} />
                 ) : (
                   <li>
                     <button onClick={() => navigate("/login")}>회원가입/로그인</button>

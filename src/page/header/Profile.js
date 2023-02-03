@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { VscBell } from "react-icons/vsc";
 import styled from "styled-components";
 import ProfileModal from "./ProfileModal";

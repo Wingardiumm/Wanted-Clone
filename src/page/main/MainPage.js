@@ -5,8 +5,6 @@ import InterestTagBanner from "./banner/InterestTagBanner";
 import SectionDivider from "./banner/SectionDivider";
 import TypeTestBanner from "./banner/TypeTestBanner";
 import MainContentSection from "./MainContentSection";
-import MainScrollableNav from "./scrollabeTab/MainScrollableNav";
-import MainEventCarousel from "./section/eventBanner/MainEventBannerTitle";
 import MainEventSlide from "./section/eventBanner/MainEventSlide";
 import RecruitmentInfo from "./section/recruitmentInfo/RecruitmentInfo";
 const MainPageWrapper = styled.div`

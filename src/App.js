@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import MainLayOut from "./component/MainLayOut";
 import NotFooterLayOut from "./component/NotFooterLayOut";
+import EmploymentPage from "./page/employment/EmploymentPage";
 import LoginPage from "./page/login/LoginPage";
 import MainPage from "./page/main/MainPage";
 import ResumePage from "./page/resume/resumeListPage/ResumePage";
@@ -39,6 +40,7 @@ function App() {
         </Route>
         <Route element={<NotFooterLayOut />}>
           <Route path="/resume" element={<ResumePage />} />
+          <Route path="/employment" element={<EmploymentPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
       </Routes>

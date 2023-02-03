@@ -39,20 +39,14 @@ const TestLinkArrow = styled.span`
   span {
     display: -ms-flexbox;
     display: flex;
-    -ms-flex-align: inherit;
     align-items: inherit;
-    -ms-flex-pack: inherit;
     justify-content: inherit;
     svg {
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
       user-select: none;
       width: 1em;
       height: 1em;
       display: inline-block;
       fill: currentColor;
-      -ms-flex-negative: 0;
       flex-shrink: 0;
       font-size: inherit;
     }
