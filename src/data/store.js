@@ -5,7 +5,6 @@ let signInEmail = createSlice({
     initialState: '',
     reducers: {
         setSignInEmail(state, action) {
-            console.log(action.payload)
             return state = action.payload;
         }
     }
@@ -15,7 +14,6 @@ let signUpPageOn = createSlice({
     initialState: false,
     reducers: {
         setSignUpPageOn(state, action) {
-            console.log(action.payload)
             return state = action.payload;
         }
     }
@@ -25,7 +23,6 @@ let signInPageOn = createSlice({
     initialState: true,
     reducers: {
         setSignInPageOn(state, action) {
-            console.log(action.payload)
             return state = action.payload;
         }
     }
@@ -35,7 +32,6 @@ let inputPasswordPageOn = createSlice({
     initialState: false,
     reducers: {
         setInputPasswordPageOn(state, action) {
-            console.log(action.payload)
             return state = action.payload;
         }
     }
@@ -51,5 +47,6 @@ export default configureStore({
         signInPageOn: signInPageOn.reducer,
         signUpPageOn: signUpPageOn.reducer,
         inputPasswordPageOn: inputPasswordPageOn.reducer,
+        
     }
 })

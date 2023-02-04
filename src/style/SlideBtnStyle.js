@@ -123,3 +123,10 @@ export function SlideBtnNextArrowSvg() {
     </svg>
   );
 }
+export function SlideBtnGreyArrowSvg() {
+  return (
+    <svg viewBox="0 0 12 12">
+      <path fill="#b5b5b5" d="M3.345 9.72a.75.75 0 0 0 1.06 1.06l4.25-4.25a.75.75 0 0 0 0-1.06l-4.25-4.25a.75.75 0 0 0-1.06 1.06L7.065 6l-3.72 3.72z"></path>
+    </svg>
+  );
+}

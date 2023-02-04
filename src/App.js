@@ -5,6 +5,7 @@ import "./App.css";
 import MainLayOut from "./component/MainLayOut";
 import NotFooterLayOut from "./component/NotFooterLayOut";
 import EmploymentPage from "./page/employment/EmploymentPage";
+import JobDetailPage from "./page/jobDetail/JobDetailPage";
 import LoginPage from "./page/login/LoginPage";
 import MainPage from "./page/main/MainPage";
 import ResumePage from "./page/resume/resumeListPage/ResumePage";
@@ -37,9 +38,10 @@ function App() {
         <Route element={<MainLayOut />}>
           <Route path="/" element={<MainPage></MainPage>} />
           <Route path="/resumeLanding" element={<ResumeLandingPage></ResumeLandingPage>} />
+          <Route path="/employment/:id" element={<JobDetailPage/>}/>
         </Route>
         <Route element={<NotFooterLayOut />}>
-          <Route path="/resume" element={<ResumePage />} />
+          <Route path="/resume" element={<ResumePage />}/>
           <Route path="/employment" element={<EmploymentPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />

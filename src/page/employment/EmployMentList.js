@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { BookMarArrowkSvg, BookMarkSvg } from "../main/section/svg/svgComponent";
+import JobActiveEmploymentSlide from "./JobActiveEmploymentSlide";
 import JobDetailSearch from "./JobDetailSearch";
+import JobList from "./JobList";
 
 const JobListWrapper = styled.div`
   margin: 0 auto;
@@ -19,6 +21,7 @@ const JobListWrapper = styled.div`
     flex-shrink: 0;
   }
 `;
+
 const JobListBookmarkSection = styled.div`
   margin-bottom: 12px;
   button {
@@ -45,14 +48,7 @@ const JobListBookmarkSection = styled.div`
     }
   }
 `;
-const ActiveEmploymentTitle = styled.h3`
-  font-size: 22px;
-    font-weight: 600;
-    line-height: normal;
-    letter-spacing: -.3px;
-    color: #333;
-    margin: 20px 0 14px;
-`
+
 function EmployMentList() {
   return (
     <JobListWrapper>
@@ -67,7 +63,8 @@ function EmployMentList() {
           <BookMarArrowkSvg />
         </button>
       </JobListBookmarkSection>
-      <ActiveEmploymentTitle>적극 채용중인 회사</ActiveEmploymentTitle>
+      <JobActiveEmploymentSlide/>
+      <JobList/>
     </JobListWrapper>
   );
 }

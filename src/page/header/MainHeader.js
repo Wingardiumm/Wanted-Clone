@@ -202,7 +202,7 @@ function MainHeader() {
                   <img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ficon-menu.png&w=17&q=75" alt="menu"></img>
                 </button>
                 <Link to={"/"}>
-                  <img className="header-logo" src="./media/logo.png" alt="로고" />
+                  <img className="header-logo" src="../media/logo.png" alt="로고" />
                 </Link>
               </div>
             </MainMenu>
