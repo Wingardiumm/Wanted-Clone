@@ -6,10 +6,11 @@ import JobDetailPageEmployList from "./JobDetailPageEmployList";
 const JobDetailContainer = styled.div`
   background: #fff;
 `;
-const JobDetailContentWrapper = styled.div`
+const JobDetailPageWrapper = styled.div`
   margin: 0 auto;
   padding: 20px 0 80px;
   max-width: 1060px;
+  position: relative;
   @media (min-width: 1200px) {
     width: 87.72%;
   }
@@ -17,16 +18,21 @@ const JobDetailContentWrapper = styled.div`
     width: 90%;
   }
 `;
+const JobDetailContentWrapper = styled.div`
+  position: relative;
+`;
 
 function JobDetailPage() {
   return (
     <JobDetailContainer>
-      <JobDetailContentWrapper>
-        {/* 상세페이지 내용 */}
-        <JobDetailContent />
-      {/* 상세페이지 채용공고 리스트*/}
+      <JobDetailPageWrapper>
+        <JobDetailContentWrapper>
+          {/* 상세페이지 내용 */}
+          <JobDetailContent />
+        </JobDetailContentWrapper>
+        {/* 상세페이지 채용공고 리스트*/}
       <JobDetailPageEmployList />
-      </JobDetailContentWrapper>
+      </JobDetailPageWrapper>
     </JobDetailContainer>
   );
 }

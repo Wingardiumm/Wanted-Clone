@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { SimpleSlider } from "../../component/simpleSlider";
 import InterestTagBanner from "./banner/InterestTagBanner";
@@ -28,6 +29,19 @@ const MainContentWrapper = styled.div`
   }
 `;
 function MainPage() {
+  useEffect(()=>{
+    const jwt = localStorage.getItem('jwt')
+    console.log(jwt)
+    axios
+    .get("https://dev.risingserver13forever.shop/app/recommended-events")
+    .then((Response) => {
+      console.log(Response.data);
+      console.log('dddddd')
+    })
+    .catch((Error) => {
+      console.log(Error);
+    });
+  },[])
   return (
     <MainPageWrapper>
       {/* 메인 캐러셀 */}

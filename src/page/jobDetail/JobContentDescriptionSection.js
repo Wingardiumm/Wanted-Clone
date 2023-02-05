@@ -42,7 +42,7 @@ const JobDetailSkillTag = styled.div`
 const JobContentDivider = styled.hr`
   margin: 0;
 `;
-function JobContentDescriptionSection() {
+function JobContentDescriptionSection({detailData}) {
   return (
     <div>
       <JobDescriptionWrapper>
@@ -90,7 +90,7 @@ function JobContentDescriptionSection() {
         </div>
       </JobDescriptionWrapper>
       <JobContentDivider></JobContentDivider>
-      <JobDetailLocationMapSection />
+      <JobDetailLocationMapSection detailData={detailData}/>
     </div>
   );
 }

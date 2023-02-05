@@ -25,7 +25,7 @@ const JobDetailMapWrapper = styled.section`
   }
 `;
 
-function JobDetailLocationMapSection() {
+function JobDetailLocationMapSection({detailData}) {
   return (
     <JobDetailMapWrapper>
       <div>
@@ -36,7 +36,7 @@ function JobDetailLocationMapSection() {
         <span>근무지역</span>
         <span>관악구 관악로 1, 서울대학교 940동 연구공원본관 5층(주소)</span>
       </div>
-      <KakaoMap/>
+      <KakaoMap detailData={detailData}/>
     </JobDetailMapWrapper>
   );
 }

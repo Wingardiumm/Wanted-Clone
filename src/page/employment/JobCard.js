@@ -73,34 +73,35 @@ const JobCardContainer = styled.div`
   }
 `;
 
-function JobCard() {
+function JobCard({jobList}) {
   return (
     <JobCardContainer>
       {" "}
-      <Link to={"/"}>
+      <Link to={`/employment/${jobList.compensationApplicant}`}>
         <header
           style={{
-            backgroundImage: `url(${"https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F15791%2Ftjtn6g0qxdium3k8__400_400.jpg&w=400&q=75"})`,
+            backgroundImage: `url(${jobList.companyRepresentativeImg})`,
           }}
         >
           <button type="button" className="job-card-button">
             <BookmarkNoFilled />
           </button>
         </header>
-      </Link>
       <div className="job-card-body">
-        <div className="job-card-position">Machine Vision Engineer</div>
-        <div>수누아이랩</div>
+        <div className="job-card-position">{jobList.recruitmentPositionName}</div>
+        <div>{jobList.companyName}</div>
         <div>
-          <JobTooltipLabel/>
+          {/* 응답률 */}
+          <JobTooltipLabel responseRateWord={jobList.companyResponseRateWord}/>
         </div>
         <div className="job-card-company">
-          서울
+          {jobList.region}
           <span style={{ margin: "0 3px" }}>·</span>
-          <span>한국</span>
+          <span>{jobList.country}</span>
         </div>
         <div className="job-card-reward">채용보상금 1,000,000원</div>
       </div>
+      </Link>
     </JobCardContainer>
   );
 }

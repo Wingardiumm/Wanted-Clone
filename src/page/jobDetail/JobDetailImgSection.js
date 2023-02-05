@@ -66,14 +66,14 @@ const JobImgItemContainer = styled.div`
   }
 `;
 
-function JobDetailImgSection() {
-    const slide = useRef();
-    const next = ()=>{
-        slide.current.scrollBy({left:100, behavior:'smooth'});
-    }
-    const prev = ()=>{
-        slide.current.scrollBy({left:-100, behavior:'smooth'});
-    }
+function JobDetailImgSection({ detailData }) {
+  const slide = useRef();
+  const next = () => {
+    slide.current.scrollBy({ left: 100, behavior: "smooth" });
+  };
+  const prev = () => {
+    slide.current.scrollBy({ left: -100, behavior: "smooth" });
+  };
   return (
     <JobImgContainer>
       <PrevBtn onClick={prev}>
@@ -83,12 +83,19 @@ function JobDetailImgSection() {
         <SlideBtnGreyArrowSvg />
       </NextBtn>
       <JobImgSlider ref={slide}>
-        <JobImgItemContainer>
-          <img
-            width={"100%"}
-            src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F15791%2Ftjtn6g0qxdium3k8__1080_790.jpg&w=1000&q=75"
-          />
-        </JobImgItemContainer>
+        {detailData?.totalImages?.map((data,i) => {
+          if (data !== null) {
+            return(
+            <JobImgItemContainer key={data+i}>
+              <img width={"100%"} src={data} />
+            </JobImgItemContainer>
+
+            );
+          } else{
+            return null;
+          }
+        })}
+
         <JobImgItemContainer>
           <img
             width={"100%"}
@@ -113,4 +120,3 @@ function JobDetailImgSection() {
 }
 
 export default JobDetailImgSection;
-

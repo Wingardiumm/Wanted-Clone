@@ -8,6 +8,7 @@ import EmploymentPage from "./page/employment/EmploymentPage";
 import JobDetailPage from "./page/jobDetail/JobDetailPage";
 import LoginPage from "./page/login/LoginPage";
 import MainPage from "./page/main/MainPage";
+import ResumeDetailPage from "./page/resume/resumeDetail/ResumeDetailPage";
 import ResumePage from "./page/resume/resumeListPage/ResumePage";
 import ResumeLandingPage from "./page/resume/rsumeLanding/ResumeLandingPage";
 import GlobalStyle from "./style/GlobalStyle";
@@ -42,6 +43,7 @@ function App() {
         </Route>
         <Route element={<NotFooterLayOut />}>
           <Route path="/resume" element={<ResumePage />}/>
+          <Route path="/resume/:id" element={<ResumeDetailPage />}/>
           <Route path="/employment" element={<EmploymentPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />

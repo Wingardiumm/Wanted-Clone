@@ -1,19 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { BsShare } from "react-icons/bs";
-import { ResumeBtnStyle } from "../resume/rsumeLanding/ResumeStyle";
-import { BookmarkNoFilled, BookmarkNoFilled2, BookMarkSvg } from "../main/section/svg/svgComponent";
+import { BookmarkNoFilled2 } from "../main/section/svg/svgComponent";
 import QuestionMarkBtn from "../../component/QuestionMarkBtn";
+import { css } from "@emotion/react";
 
 const JobProcessContainer = styled.aside`
   width: 340px;
-  position: fixed;
   right: calc((100% - 1060px) / 2);
   display: block;
+  position: fixed;
   top: 70px;
-  /* bottom: 0px;
-    position: absolute;
-    right: 0px; */
+  /* ${(props) =>
+    props.scrollSwitch &&
+    css`
+      bottom: 0px;
+      position: absolute;
+      right: 0px;
+    `} */
 `;
 const JobProcessWrapper = styled.div`
   > header {
@@ -150,27 +154,27 @@ const JobProcessAiBannerWrapper = styled.div`
   align-items: stretch;
   margin-top: 14px;
   background-color: #f3f5f8;
-    padding: 11px 15px 10px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 4px;
-    svg{
-      position: relative;
-      top: -5px;
-    }
-  .ai-banner-title{
-    span{
-    font-weight: 600;
-    vertical-align: -1px;
-    img{
-      margin-bottom: 4px!important;
+  padding: 11px 15px 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  svg {
+    position: relative;
+    top: -5px;
+  }
+  .ai-banner-title {
+    span {
+      font-weight: 600;
+      vertical-align: -1px;
+      img {
+        margin-bottom: 4px !important;
+      }
     }
   }
-  }
-  .ai-banner-description{
+  .ai-banner-description {
     line-height: 1.5;
     color: #999;
   }
@@ -181,15 +185,14 @@ const AiBannerItemContainer = styled.div`
   align-self: auto;
   font-size: 12px;
   color: #111;
-  *{
+  * {
     margin-right: 5px;
     vertical-align: middle;
   }
-  
 `;
-function JobProcessSide() {
+function JobProcessSide({ scrollSwitch }) {
   return (
-    <JobProcessContainer>
+    <JobProcessContainer scrollSwitch={scrollSwitch}>
       <JobProcessWrapper>
         <header>
           <RewardContainer>
@@ -235,12 +238,12 @@ function JobProcessSide() {
       </JobProcessWrapper>
       <JobProcessAiBannerWrapper>
         <AiBannerItemContainer className="ai-banner-title">
-          <img src="https://static.wanted.co.kr/images/ai/logo-wantedai.png" width="70" alt="logo-wantedai"/>
+          <img src="https://static.wanted.co.kr/images/ai/logo-wantedai.png" width="70" alt="logo-wantedai" />
           <span>합격예측</span>
         </AiBannerItemContainer>
         <AiBannerItemContainer className="ai-banner-description">
           서류합격률이 궁금하다면?
-          <QuestionMarkBtn/>
+          <QuestionMarkBtn />
         </AiBannerItemContainer>
       </JobProcessAiBannerWrapper>
     </JobProcessContainer>

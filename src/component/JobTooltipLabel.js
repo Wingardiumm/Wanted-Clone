@@ -41,11 +41,11 @@ const TooltipModal = styled.div`
   transform: translateX(-50%);
 `;
 
-function JobTooltipLabel() {
+function JobTooltipLabel({responseRateWord}) {
   return (
     <TootipLabel type="button">
       <div className="job-card-tooltip">
-        <span>응답률 매우 높음</span>
+        <span>{responseRateWord}</span>
       </div>
       <TooltipModal>지원 후 응답받을 확률이 95% 이상입니다.</TooltipModal>
     </TootipLabel>

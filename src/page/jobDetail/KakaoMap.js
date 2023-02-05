@@ -1,7 +1,7 @@
 /*global kakao */
 import React, { useEffect, useRef } from "react";
 
-function KakaoMap() {
+function KakaoMap({detailData}) {
   const { kakao } = window;
   const container = useRef(null);
   const options = {

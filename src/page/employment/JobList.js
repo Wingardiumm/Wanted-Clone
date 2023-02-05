@@ -17,13 +17,15 @@ const JobListContainer = styled.div`
   }
 `;
 
-function JobList() {
+function JobList({ recruitmentList }) {
   return (
     <JobListContainer>
       <ul>
-        <li>
-          <JobCard/>
-        </li>
+        {recruitmentList?.map((data, i) => (
+          <li key={i}>
+            <JobCard jobList={data} />
+          </li>
+        ))}
       </ul>
     </JobListContainer>
   );

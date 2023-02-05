@@ -83,10 +83,11 @@ const JobDetailTagWrapper = styled.div`
     }
   }
 `;
-function JobContentHeaderSection() {
+function JobContentHeaderSection({detailData}) {
+  console.log(detailData)
   return (
     <JobHeaderSectionWrapper>
-      <h2> Machine Vision Engineer</h2>
+      <h2> {detailData?.positionName}</h2>
       <div>
         <h6>
           <Link to={"/"}>스누아이랩</Link>
@@ -105,24 +106,7 @@ function JobContentHeaderSection() {
           <li>
             <Link to={"/"}>#연봉업계평균이상</Link>
           </li>
-          <li>
-            <Link to={"/"}>#연봉업계평균이상</Link>
-          </li>
-          <li>
-            <Link to={"/"}>#연봉업계평균이상</Link>
-          </li>
-          <li>
-            <Link to={"/"}>#연봉업계평균이상</Link>
-          </li>
-          <li>
-            <Link to={"/"}>#연봉업계평균이상</Link>
-          </li>
-          <li>
-            <Link to={"/"}>#연봉업계평균이상</Link>
-          </li>
-          <li>
-            <Link to={"/"}>#연봉업계평균이상</Link>
-          </li>
+         
         </ul>
       </JobDetailTagWrapper>
     </JobHeaderSectionWrapper>

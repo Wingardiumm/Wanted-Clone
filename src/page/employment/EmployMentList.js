@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { BookMarArrowkSvg, BookMarkSvg } from "../main/section/svg/svgComponent";
 import JobActiveEmploymentSlide from "./JobActiveEmploymentSlide";
@@ -50,6 +51,24 @@ const JobListBookmarkSection = styled.div`
 `;
 
 function EmployMentList() {
+  const [recruitmentList, setRecruitmentList] = useState();
+  useEffect(()=>{
+    const jwt = localStorage.getItem('jwt')
+    console.log(jwt)
+    axios
+    .get("https://dev.risingserver13forever.shop/app/recruitments")
+    .then((Response) => {
+      console.log(Response.data);
+      if(Response.data.isSuccess){
+        setRecruitmentList(Response.data.result)
+        console.log(recruitmentList)
+      } 
+    })
+    .catch((Error) => {
+      console.log(Error);
+    });
+  },[])
+
   return (
     <JobListWrapper>
       <div>
@@ -64,7 +83,7 @@ function EmployMentList() {
         </button>
       </JobListBookmarkSection>
       <JobActiveEmploymentSlide/>
-      <JobList/>
+      <JobList recruitmentList={recruitmentList}/>
     </JobListWrapper>
   );
 }
