@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import ResumeAward from './ResumeAward'
 import ResumeCareer from './resumeDetailList/ResumeCareer'
+import ResumeDetailLink from './resumeDetailList/ResumeDetailLink'
 import ResumeDetailSkill from './resumeDetailList/ResumeDetailSkill'
 import ResumeEducation from './resumeDetailList/ResumeEducation'
 import ResumeLanguageSkill from './ResumeLanguageSkill'
@@ -20,7 +21,7 @@ function ResumeDetailList() {
         <ResumeDetailSkill/>
         <ResumeAward/>
         <ResumeLanguageSkill/>
-        <ResumeDetailList/>
+        <ResumeDetailLink/>
     </ResumeDetailListContainer>
   )
 }

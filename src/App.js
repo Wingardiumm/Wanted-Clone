@@ -8,6 +8,7 @@ import EmploymentPage from "./page/employment/EmploymentPage";
 import JobDetailPage from "./page/jobDetail/JobDetailPage";
 import LoginPage from "./page/login/LoginPage";
 import MainPage from "./page/main/MainPage";
+import InsightDetail from "./page/main/section/careerSection/InsightDetail";
 import ResumeDetailPage from "./page/resume/resumeDetail/ResumeDetailPage";
 import ResumePage from "./page/resume/resumeListPage/ResumePage";
 import ResumeLandingPage from "./page/resume/rsumeLanding/ResumeLandingPage";
@@ -15,7 +16,7 @@ import GlobalStyle from "./style/GlobalStyle";
 
 function App() {
   const [vh, setVh] = useState(window.innerHeight * 0.01);
-  
+
   // eslint-disable-next-line
   const screenSize = useCallback(
     _.debounce(() => {
@@ -37,13 +38,15 @@ function App() {
       <GlobalStyle></GlobalStyle>
       <Routes>
         <Route element={<MainLayOut />}>
-          <Route path="/" element={<MainPage></MainPage>} />
+          <Route path="/" element={<MainPage></MainPage>}>
+            <Route path="insight/:id" element={<InsightDetail />} />
+          </Route>
           <Route path="/resumeLanding" element={<ResumeLandingPage></ResumeLandingPage>} />
-          <Route path="/employment/:id" element={<JobDetailPage/>}/>
+          <Route path="/employment/:id" element={<JobDetailPage />} />
         </Route>
         <Route element={<NotFooterLayOut />}>
-          <Route path="/resume" element={<ResumePage />}/>
-          <Route path="/resume/:id" element={<ResumeDetailPage />}/>
+          <Route path="/resume" element={<ResumePage />} />
+          <Route path="/resume/:id" element={<ResumeDetailPage />} />
           <Route path="/employment" element={<EmploymentPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />

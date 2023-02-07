@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { loginApi } from "../../api";
 import { setInputPasswordPageOn, setSignInPageOn, setSignUpPageOn } from "../../data/store";
 import CheckSvg from "./CheckSvg";
 import LabelFormat from "./LabelFormat";
@@ -360,20 +361,20 @@ function SignUpForm() {
   const [submitBtnOn, setSubmitBtnOn] = useState(false);
   const dispatch = useDispatch();
   const submit = () => {
-    axios
-      .post("https://dev.risingserver13forever.shop/app/users", {
-        email: signInEmail,
-        password: password,
-        name: name,
-        phoneNumber: phoneNumber,
-        termsAndConditionsTF: termsAndConditionsTF,
-        personalInformationCollectionTF: personalInformationCollectionTF,
-        fourteenAndOverTF: fourteenAndOverTF,
-        receiveAdvertisementTF: receiveAdvertisementTF,
-        receiveMessageAd: receiveMessageAd,
-        receiveAppAd: receiveAppAd,
-        receiveEmailAd: receiveEmailAd,
-      })
+    loginApi
+      .signin(
+        signInEmail,
+        password,
+        name,
+        phoneNumber,
+        termsAndConditionsTF,
+        personalInformationCollectionTF,
+        fourteenAndOverTF,
+        receiveAdvertisementTF,
+        receiveMessageAd,
+        receiveAppAd,
+        receiveEmailAd
+      )
       .then((Response) => {
         const data = Response.data;
         console.log(data);
@@ -512,12 +513,12 @@ function SignUpForm() {
       !phoneNumErrorMessageOn &&
       !passwordErrorMessageOn &&
       !passwordCheckErrorMessageOn &&
-      password  &&
-      phoneNumber  &&
-      password2  &&
-      name 
+      password &&
+      phoneNumber &&
+      password2 &&
+      name
     ) {
-        console.log(name,password)
+      console.log(name, password);
       setSubmitBtnOn(true);
     } else {
       setSubmitBtnOn(false);

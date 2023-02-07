@@ -94,7 +94,7 @@ function EventItem({ eventData, filterd = false }) {
     <EventItemContainer>
       <Link to={"/"}>
         <EventItemBannerImg filterd={filterd}>
-          <img src={eventData.img_path} alt="" />
+          <img src={eventData?.eventRepresentativeImg} alt={eventData?.eventName} />
           <EventMoreBtnContainer>
             {filterd && (
               <EventMoreBtn>
@@ -109,8 +109,8 @@ function EventItem({ eventData, filterd = false }) {
           <div style={{ display: "flex" }}>
             <EventKindEdu />
           </div>
-          <h3>{eventData.title}</h3>
-          <p>{eventData.date}</p>
+          <h3>{eventData?.eventName}</h3>
+          <p>{eventData?.closeTime}</p>
         </EventBannerDescription>
       </Link>
     </EventItemContainer>

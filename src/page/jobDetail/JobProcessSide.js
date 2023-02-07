@@ -1,23 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { BsShare } from "react-icons/bs";
 import { BookmarkNoFilled2 } from "../main/section/svg/svgComponent";
 import QuestionMarkBtn from "../../component/QuestionMarkBtn";
-import { css } from "@emotion/react";
 
 const JobProcessContainer = styled.aside`
   width: 340px;
-  right: calc((100% - 1060px) / 2);
+  /* right: calc((100% - 1060px) / 2); */
+  margin-left: 20px;
   display: block;
-  position: fixed;
+  position: sticky;
   top: 70px;
-  /* ${(props) =>
-    props.scrollSwitch &&
-    css`
-      bottom: 0px;
-      position: absolute;
-      right: 0px;
-    `} */
 `;
 const JobProcessWrapper = styled.div`
   > header {
@@ -207,6 +200,7 @@ function JobProcessSide({ scrollSwitch }) {
                 <p>500,000</p>
               </li>
             </ul>
+            {/* 공유하기 버튼 */}
             <JobProcessShareBtn>
               <BsShare />
             </JobProcessShareBtn>

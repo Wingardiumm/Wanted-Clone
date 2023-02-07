@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { useState } from "react";
+import React from "react";
 
 const TabBtn = styled.button`
   display: -ms-flexbox;
@@ -32,7 +32,7 @@ const TabBtn = styled.button`
 
 function TabList({ tabData,onClick }) {
   return (
-    <TabBtn id={tabData.id} 
+    <TabBtn name={tabData.tag} id={tabData.id} 
     onClick={(e) => onClick(e)} 
     className={tabData.isChecked && "tab-selected"}
     >

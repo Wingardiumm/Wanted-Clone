@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CarrerImgGrid from "./section/careerSection/CarrerImgGrid";
 import MainScrollableNav from "./scrollabeTab/MainScrollableNav";
-
-
+import axios from "axios";
+import {insightApi} from "../../api";
 export const MainContentTitleWrapper = styled.div`
   text-align: center;
   h2 {
@@ -33,6 +33,21 @@ export const MainTitle = styled.div`
   }
 `;
 function MainContentSection() {
+  const [choiceTabId, setChoiceTabId] = useState('dev');
+  const [insightList, setInsightList] = useState();
+  useEffect(() => {
+    insightApi.getInsight(choiceTabId)
+      .then((Response) => {
+        const data = Response.data;
+        console.log(data,choiceTabId);
+        if (data.isSuccess) {
+          setInsightList(data.result);
+        }
+      })
+      .catch((Error) => {
+        console.log(Error);
+      });
+  }, [choiceTabId]);
   return (
     <>
       <MainContentTitleWrapper>
@@ -80,8 +95,8 @@ function MainContentSection() {
           </button>
         </MainTitle>
       </MainContentTitleWrapper>
-      <MainScrollableNav /> {/* 커리어 구분 탭 */}
-      <CarrerImgGrid />
+      <MainScrollableNav setChoiceTabId={setChoiceTabId}/> {/* 커리어 구분 탭 */}
+      <CarrerImgGrid insightList={insightList} />
       {/**커리어 목록 */}
     </>
   );

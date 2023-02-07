@@ -40,13 +40,13 @@ const ScrollableNavSlider = styled(Slider)`
   }
 `;
 
-function MainScrollableNav() {
+function MainScrollableNav({setChoiceTabId}) {
   const [tabList] = useState(mainTabData);
-  const [choiceTabId, setChoiceTabId] = useState();
+  
   const tabActiveHandling = (e) => {
-    setChoiceTabId(e.target.id);
+    setChoiceTabId(e.target.name);
     for (let i = 0; i < tabList.length; i++) {
-      if (i === e.target.id - 1) {
+      if (tabList[i].id === Number(e.target.id)) {
         tabList[i].isChecked = true;
       } else {
         tabList[i].isChecked = false;

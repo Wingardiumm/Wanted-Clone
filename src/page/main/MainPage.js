@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useEffect } from "react";
+import React from "react";
+import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import { SimpleSlider } from "../../component/simpleSlider";
 import InterestTagBanner from "./banner/InterestTagBanner";
@@ -29,50 +29,41 @@ const MainContentWrapper = styled.div`
   }
 `;
 function MainPage() {
-  useEffect(()=>{
-    const jwt = localStorage.getItem('jwt')
-    console.log(jwt)
-    axios
-    .get("https://dev.risingserver13forever.shop/app/recommended-events")
-    .then((Response) => {
-      console.log(Response.data);
-      console.log('dddddd')
-    })
-    .catch((Error) => {
-      console.log(Error);
-    });
-  },[])
+  
   return (
-    <MainPageWrapper>
-      {/* 메인 캐러셀 */}
-      <SimpleSlider />
-      <MainSectionWrapper>
-        <MainContentWrapper>
-          {/* 메인 캐리어 그리드 */}
-          <MainContentSection />
-        </MainContentWrapper>
-      </MainSectionWrapper>
-      {/* 유형테스트 배너 */}
-      <TypeTestBanner />
-      {/* 섹션 나누기 */}
-      <SectionDivider />
-      {/* 관심태그 배너 */}
-      <InterestTagBanner />
-      <MainSectionWrapper>
-        <MainContentWrapper>
-          {/* 이벤트 캐러셀 */}
-          <MainEventSlide />
-        </MainContentWrapper>
-      </MainSectionWrapper>
-      {/* 섹션 나누기 */}
-      <SectionDivider />
-      <MainSectionWrapper>
-        <MainContentWrapper>
-          {/* 채용정보 섹션 */}
-          <RecruitmentInfo/>
-        </MainContentWrapper>
-      </MainSectionWrapper>
-    </MainPageWrapper>
+    <>
+      <MainPageWrapper>
+        {/* 메인 캐러셀 */}
+        <SimpleSlider />
+        <MainSectionWrapper>
+          <MainContentWrapper>
+            {/* 메인 캐리어 그리드 */}
+            <MainContentSection />
+          </MainContentWrapper>
+        </MainSectionWrapper>
+        {/* 유형테스트 배너 */}
+        <TypeTestBanner />
+        {/* 섹션 나누기 */}
+        <SectionDivider />
+        {/* 관심태그 배너 */}
+        <InterestTagBanner />
+        <MainSectionWrapper>
+          <MainContentWrapper>
+            {/* 이벤트 캐러셀 */}
+            <MainEventSlide />
+          </MainContentWrapper>
+        </MainSectionWrapper>
+        {/* 섹션 나누기 */}
+        <SectionDivider />
+        <MainSectionWrapper>
+          <MainContentWrapper>
+            {/* 채용정보 섹션 */}
+            <RecruitmentInfo/>
+          </MainContentWrapper>
+        </MainSectionWrapper>
+      </MainPageWrapper>
+      <Outlet/>
+    </>
   );
 }
 

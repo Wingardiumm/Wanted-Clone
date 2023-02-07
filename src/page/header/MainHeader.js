@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
 import MainNavModal from "../main/section/careerSection/MainNavModal";
-import axios from "axios";
 import Profile from "./Profile";
+import { loginApi } from "../../api";
 const HeaderBox = styled.div`
   padding-right: initial;
   width: 100%;
@@ -153,7 +153,7 @@ const AsideList = styled.ul`
   }
 `;
 function MainHeader() {
-  const menuData = ["채용", "이벤트", "직군별 연봉", "이력서", "커뮤니티", "프리랜서", "AI합격예측"];
+  const menuData = [{ name: "채용", url: "employment" }, { name: "이벤트", url: "" }, { name: "직군별 연봉",url:"" }, {name:"이력서",url:"resume"}, {name:"커뮤니티",url:""}, {name:"프리랜서",url:""}, {name:"AI합격예측",url:""}];
   const [profileModalOn, setProfileModalOn] = useState(false);
   const [
     presentNav,
@@ -167,12 +167,8 @@ function MainHeader() {
     const userId = localStorage.getItem("user_id");
     if (jwt) {
       setIsLogin(true);
-      axios
-        .get(`https://dev.risingserver13forever.shop/app/users/${userId}`, {
-          headers: {
-            "x-access-token": jwt,
-          },
-        })
+      loginApi
+        .users(jwt, userId)
         .then((Response) => {
           console.log(Response.data);
         })
@@ -209,8 +205,8 @@ function MainHeader() {
             <MainNav presentNav={presentNav}>
               {menuData.map((e) => {
                 return (
-                  <li key={e}>
-                    <Link to={"/"}>{e}</Link>
+                  <li key={e.name}>
+                    <Link to={`/${e.url}`}>{e.name}</Link>
                   </li>
                 );
               })}

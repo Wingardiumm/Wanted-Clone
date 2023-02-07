@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CareerItem from "./CareerItem";
-import careerData from "../../../../data/careerData";
 import _ from "lodash";
 
 const CareerList = styled.ul`
@@ -106,20 +105,21 @@ const BtnName = styled.span`
     }
   }
 `;
-function CarrerImgGrid() {
+function CarrerImgGrid({insightList}) {
   const [count, setCount] = useState(0);
-  const [careerSliceData, setCareerSliceData] = useState();
+  const [careerSliceData, setCareerSliceData] = useState(insightList);
   useEffect(() => {
     console.log(count, careerSliceData);
     if (count === 0) {
-      setCareerSliceData(careerData.slice(0, 12));
+      setCareerSliceData(insightList?.slice(0, 12));
     } else if (count === 1) {
-      setCareerSliceData([...careerSliceData, ...careerData.slice(12, 20)]);
+      setCareerSliceData([...careerSliceData, ...insightList?.slice(12, 20)]);
     } else {
       console.log(count);
-      setCareerSliceData(_.shuffle(careerData).slice(0, 20));
+      setCareerSliceData(_.shuffle(insightList)?.slice(0, 20));
     }
-  }, [count]);
+    console.log(careerSliceData)
+  }, [count,insightList]);
   return (
     <>
       <CareerList>

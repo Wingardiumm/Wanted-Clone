@@ -107,26 +107,27 @@ const ItemFromLogoName = styled.span`
 `;
 
 function CareerItem({careerData}) {
+  // console.log(careerData)
   return (
-    <Link to={"/"}>
+    <Link to={`/insight/${careerData.insightId}`}>
       <Imgbox>
         <img
-        src={careerData.img_path}
-          alt={careerData.title}
+        src={careerData?.representativeContentsImg}
+          alt={careerData?.insightTitle}
         ></img>
       </Imgbox>
       <CareerExplain>
-        <ItemTitle>{careerData.title}</ItemTitle>
+        <ItemTitle>{careerData?.insightTitle}</ItemTitle>
         <ItemDescription>
-        {careerData.content}
+        {careerData?.contents}
         </ItemDescription>
       </CareerExplain>
       <ItemFromContainer>
         <ItemFromLogo
-          src={careerData.logo_img}
-          alt={careerData.logo_name}
+          src={careerData?.producerProfileImg}
+          alt={careerData?.producerName}
         />
-        <ItemFromLogoName>{careerData.logo_name}</ItemFromLogoName>
+        <ItemFromLogoName>{careerData?.producerName}</ItemFromLogoName>
       </ItemFromContainer>
     </Link>
   );

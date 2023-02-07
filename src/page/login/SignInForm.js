@@ -7,7 +7,7 @@ import { setInputPasswordPageOn, setSignInEmail, setSignInPageOn, setSignUpPageO
 import { signInOn, signUpOn, validateEmail } from "../../util/util";
 import LabelFormat from "./LabelFormat";
 import { BtnText, NextButton } from "./styleComponent/NextButton";
-
+import { loginApi } from "../../api";
 const LoginContentBox = styled.div`
   overflow: hidden;
   position: relative;
@@ -318,12 +318,7 @@ function SignInForm() {
   };
   const submit = () => {
     console.log("섭밋작동", loginEmail);
-    axios
-      .post("https://dev.risingserver13forever.shop/app/login", {
-        email: loginEmail,
-      })
-      .then((Response) => {
-        console.log(Response.data.code);
+     loginApi.login(loginEmail).then((Response) => {
         if (Response.data.code === 3003) { //회원가입 이동
           dispatch(setSignUpPageOn(true));
           dispatch(setInputPasswordPageOn(false));
