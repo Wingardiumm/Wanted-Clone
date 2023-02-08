@@ -20,9 +20,9 @@ const ResumeDetailSecondListAddButton = styled(ResumeDetailAddListButton)`
      font-size: 16px;
 `
 
-function ResumeDetailAddListBtn() {
+function ResumeDetailAddListBtn({onClick}) {
   return (
-    <ResumeDetailAddListButton>
+    <ResumeDetailAddListButton onClick={onClick}>
         + 추가
     </ResumeDetailAddListButton>
   )

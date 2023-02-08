@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import { ResumeDetailSecondListAddBtn } from "./ResumeDetailAddListBtn";
@@ -102,7 +102,7 @@ const PeriodFromCheckBox = styled.div`
     font-weight: 400;
   }
 `;
-const SearchModalButton = styled.button`
+const SearchModalButton = styled.input`
   cursor: pointer;
   color: #3b3d40;
   white-space: nowrap !important;
@@ -162,7 +162,28 @@ const ResumeDetailListCloseBtn = styled.button`
   right: 15px;
 `;
 function ResumeDetailDraggableList({ index, testData }) {
-  console.log(testData)
+  const [startYear, setStartYear] = useState();
+  const [startMonth, setStartMonth] = useState();
+  const [endYear, setEndYear] = useState();
+  const [endMonth, setEndMonth] = useState();
+  const [currentlyTrueFalse, setCurrentlyTrueFalse] = useState()
+  const [itemId, setItemId]= useState()
+  const [mainText, setMainText] = useState()
+  const [subText, setSubText] = useState()
+  useEffect(()=>{
+    console.log("idCareer" in testData)
+    if("idCareer" in testData){
+      setStartYear(testData?.yearJoin)
+      setStartMonth(testData?.monthJoin)
+      setEndYear(testData?.yearResignation)
+      setEndMonth(testData?.monthResignation)
+      setCurrentlyTrueFalse(testData?.inCompanyCurrentlyTrueFalse)
+      setItemId(testData?.idCareer)
+      setMainText(testData?.nameCompany)
+      setSubText(testData?.positionCompany)
+      console.log(testData,startYear,itemId,subText)
+    }
+  },[])
   return (
     <Draggable key={testData.id} draggableId={testData.id} index={index}>
       {(provided) => (
@@ -177,25 +198,28 @@ function ResumeDetailDraggableList({ index, testData }) {
                   <PeriodDate>
                     <div>
                       <div>
-                        <input type={"text"} placeholder={"YYYY"} maxLength={4} className="resume-detail-year" />
+                        <input type={"text"} placeholder={"YYYY"} maxLength={4} className="resume-detail-year" defaultValue={startYear}/>
                         <span>
-                          .<input type={"text"} placeholder={"MM"} maxLength={2} className="resume-detail-month" />
+                          .<input type={"text"} placeholder={"MM"} maxLength={2} className="resume-detail-month"
+                          defaultValue={startMonth} />
                         </span>
                       </div>
                     </div>
                     <div>
                       <span style={{ margin: "0 5px" }}>-</span>
                       <div>
-                        <input type={"text"} placeholder={"YYYY"} maxLength={4} className="resume-detail-year" />
+                        <input type={"text"} placeholder={"YYYY"} maxLength={4} className="resume-detail-year"
+                        defaultValue={endYear} />
                         <span>
-                          .<input type={"text"} placeholder={"MM"} maxLength={2} className="resume-detail-month" />
+                          .<input type={"text"} placeholder={"MM"} maxLength={2} className="resume-detail-month"
+                          defaultValue={endMonth} />
                         </span>
                         <span style={{ color: "#fe415c" }}>*</span>
                       </div>
                     </div>
                   </PeriodDate>
                   <PeriodFromCheckBox>
-                    <input type={"checkbox"} />
+                    <input type={"checkbox"} checked={currentlyTrueFalse}/>
                     {/* 재직인지 재학인지 데이터에 따라 변할것.. */}
                     <label>현재 재직중</label>
                   </PeriodFromCheckBox>
@@ -204,7 +228,7 @@ function ResumeDetailDraggableList({ index, testData }) {
               <div>
                 <div>
                   <form action=".">
-                    <SearchModalButton type="button">회사명</SearchModalButton>
+                    <SearchModalButton type="text" defaultValue={"회사명"}></SearchModalButton>
                   </form>
                   <div>
                     <ResumeDetailInputBox type={"text"} maxLength="255" name="title" placeholder="부서명/직책" />
@@ -214,7 +238,7 @@ function ResumeDetailDraggableList({ index, testData }) {
                       <ResumeDetailSecondListAddBtn />
                     </div>
                   </div>
-                </div>
+                </div> 
               </div>
               <ResumeDetailListCloseBtn>
                 <svg width="10" height="10" viewBox="0 0 16 16">

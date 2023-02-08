@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { resumeApi } from "../../../api";
 import ResumeListItem from "./ResumeListItem";
 
 const ResumeListWrapper = styled.div`
@@ -57,15 +58,9 @@ const ResumeAddWrapper = styled.div`
 function ResumeList({resumeList}) {
   const navigate = useNavigate();
   const addResume = ()=>{
-    const jwt = localStorage.getItem('jwt')
-    axios
-    .post(`https://dev.risingserver13forever.shop/app/resumes`,{}, {
-      headers: {
-        "x-access-token": jwt,
-      },
-    })
+    resumeApi.addNewResume()
     .then((Response) => {
-      console.log(Response.data.result.user_id);
+      console.log(Response.data);
       if(Response.data.isSuccess){
         navigate(`/resume/${Response.data.result.added_resume_id}`)
       }
@@ -111,7 +106,7 @@ function ResumeList({resumeList}) {
               </g>
             </svg>
           </FileUpload>
-          <p>새 이력서 작성</p>
+          <p>파일 업로드</p>
         </ResumeAddWrapper>
       </ResumeItemWrapper>
         {resumeList?.map((data)=>(

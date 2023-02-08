@@ -2,6 +2,9 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: "https://dev.risingserver13forever.shop/",
+  headers: {
+    "x-access-token": `${localStorage.getItem('jwt')}`,
+  }
 });
 
 export const loginApi = {
@@ -36,11 +39,7 @@ export const loginApi = {
       receiveEmailAd: receiveEmailAd,
     }),
   users: (jwt, userId) =>
-    api.get(`app/users/${userId}`, {
-      headers: {
-        "x-access-token": jwt,
-      },
-    }),
+    api.get(`app/users/${userId}`),
 };
 
 export const insightApi = {
@@ -51,10 +50,16 @@ export const eventApi = {
 };
 
 export const recruitmentApi = {
-    getRecruitmentList : ()=> api.get("app/recruitments"),
-    getRecruitmentDetail : (id,jwt)=> api.get(`app/recruitments/${id}`,{
-        headers:{
-            "x-access-token": jwt,
-        }
-    })
-}
+  getRecruitmentList: () => api.get("app/recruitments"),
+  getRecruitmentDetail: (id) =>
+    api.get(`app/recruitments/${id}`),
+};
+
+export const resumeApi = {
+  getResumeDetail: (id) =>
+    api.get(`app/resumes/${id}`),
+  addCareerList: (id) => api.post(`app/resumes/${id}/careers`),
+  getResumeList:(id)=>api.get(`app/users/${id}/resumes`),
+  addNewResume:()=>api.post("app/resumes")
+};
+

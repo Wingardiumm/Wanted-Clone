@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { resumeApi } from "../../../api";
 import ResumeBanner from "../ResumeBanner";
 import ResumeList from "./ResumeList";
 import ResumeListHeader from "./ResumeListHeader";
@@ -16,14 +17,8 @@ const ResumeListContainer = styled.div`
 function ResumePage() {
   const [resumeList, setResumeList] = useState();
   useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
     const userId = localStorage.getItem('user_id')
-    axios
-      .get(`https://dev.risingserver13forever.shop/app/users/${userId}/resumes`, {
-        headers: {
-          "x-access-token": jwt,
-        },
-      })
+    resumeApi.getResumeList(userId)
       .then((Response) => {
         console.log(Response.data);
         if(Response.data.isSuccess){

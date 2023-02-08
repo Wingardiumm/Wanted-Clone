@@ -40,7 +40,7 @@ const TakeCareerBannerContent = styled.div`
     }
   }
 `;
-function ResumeCareer() {
+function ResumeCareer({resumeCareerData}) {
   return (
     <div>
       <ResumeDetailTitleAndGuide index={1} />
@@ -61,7 +61,7 @@ function ResumeCareer() {
           </div>
         </TakeCareerBannerContent>
       </TakeCareerBanner>
-      <ResumeCareerContentList/>
+      <ResumeCareerContentList resumeCareerData={resumeCareerData}/>
     </div>
   );
 }

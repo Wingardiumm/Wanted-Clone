@@ -57,7 +57,11 @@ function EmployMentList() {
   useEffect(()=>{
     const jwt = localStorage.getItem('jwt')
     console.log(jwt)
-    recruitmentApi.getRecruitmentList()
+    axios.get('https://dev.risingserver13forever.shop/app/recruitments',{
+      headers:{
+        "x-access-token":jwt,
+      }
+    })
     .then((Response) => {
       if(Response.data.isSuccess){
         setRecruitmentList(Response.data.result)
