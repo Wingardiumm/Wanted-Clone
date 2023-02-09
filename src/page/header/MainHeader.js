@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
 import MainNavModal from "../main/section/careerSection/MainNavModal";
 import Profile from "./Profile";
-import { loginApi } from "../../api";
 const HeaderBox = styled.div`
   padding-right: initial;
   width: 100%;
@@ -13,7 +12,6 @@ const HeaderBox = styled.div`
   background-color: #fff;
   -webkit-box-shadow: 0 1px 0 0 rgb(0 0 0 / 10%);
   box-shadow: 0 1px 0 0 rgb(0 0 0 / 10%);
-  /* border: 1px solid black; */
   z-index: 800;
   font-size: 14px;
   line-height: 20px;
@@ -26,10 +24,6 @@ const HeaderBox = styled.div`
     margin: 0 auto;
     width: 100%;
 
-    /* display: flex; */
-    /* align-items: center; */
-    /* justify-content: space-between; */
-    /* border: 1px solid #e2e3e3; */
   }
 `;
 const HeaderPadding = styled.div`
@@ -45,10 +39,7 @@ const MainBarNav = styled.div`
   flex-wrap: wrap;
 `;
 const MainNav = styled.ul`
-  /* list-style: none; */
-  /* display: flex; */
-  /* flex-direction: row; */
-  /* display: block; */
+
   margin: 0;
   height: inherit;
   text-align: center;
@@ -56,7 +47,6 @@ const MainNav = styled.ul`
     box-shadow: inset 0 -2px #258bf7;
   }
   li {
-    /* margin-right: 10px; */
     height: inherit;
     display: inline-block;
     a {
@@ -67,7 +57,6 @@ const MainNav = styled.ul`
       font-weight: 600;
       padding: 15px;
       display: inline-block;
-      /* color: #333333; */
     }
     &:hover {
       box-shadow: inset 0 -2px #e2e3e3;
@@ -83,7 +72,6 @@ const MainMenu = styled.div`
     justify-content: space-between;
   }
   button {
-    /* text-align: left; */
     padding: 0;
     margin-top: 2px;
     margin-right: 15px;
@@ -105,11 +93,9 @@ const AsideList = styled.ul`
   list-style: none;
   display: flex;
   flex-direction: row;
-  /* padding: 10px 0; */
 
   align-items: center;
   li {
-    /* margin-right: 10px; */
     height: inherit;
     display: inline-block;
     position: relative;
@@ -153,35 +139,31 @@ const AsideList = styled.ul`
   }
 `;
 function MainHeader() {
-  const menuData = [{ name: "채용", url: "employment" }, { name: "이벤트", url: "" }, { name: "직군별 연봉",url:"" }, {name:"이력서",url:"resume"}, {name:"커뮤니티",url:""}, {name:"프리랜서",url:""}, {name:"AI합격예측",url:""}];
+  const menuData = [{ name: "채용", url: "employment" ,id:1}, { name: "이벤트", url: "",id:2 }, { name: "직군별 연봉",url:"",id:3 }, {name:"이력서",url:"resume",id:4}, {name:"커뮤니티",url:"",id:5}, {name:"프리랜서",url:"",id:6}, {name:"AI합격예측",url:"",id:7}];
   const [profileModalOn, setProfileModalOn] = useState(false);
+  const [navClick, setNavClick] = useState(false);
   const [
     presentNav,
-    // ,setPresentNav
-  ] = useState(3);
+  setPresentNav] = useState(1);
   const [navMenuOn, setNavMenuOn] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+  const {pathname} = useLocation();
   const navigate = useNavigate();
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
-    const userId = localStorage.getItem("user_id");
+    if(pathname === '/'){
+      localStorage.setItem('presentNav', '')
+    }
+    const nav = localStorage.getItem("presentNav");
+    setPresentNav(nav)
+    console.log(pathname)
     if (jwt) {
       setIsLogin(true);
-      loginApi
-        .users(jwt, userId)
-        .then((Response) => {
-          console.log(Response.data);
-        })
-        .catch((Error) => {
-          console.log(Error);
-        });
     } else {
       setIsLogin(false);
     }
-  }, []);
-  useEffect(() => {
-    // setPresentNav(localStorage.getItem('present_nav'))
-  }, []);
+  }, [navClick]);
+
   return (
     <>
       <HeaderBox onClick={() => setProfileModalOn(false)}>
@@ -197,7 +179,10 @@ function MainHeader() {
                 >
                   <img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Ficon-menu.png&w=17&q=75" alt="menu"></img>
                 </button>
-                <Link to={"/"}>
+                <Link to={"/"} onClick={()=>{
+                  localStorage.setItem('presentNav', '')
+                  setNavClick(!navClick)
+                }}>
                   <img className="header-logo" src="../media/logo.png" alt="로고" />
                 </Link>
               </div>
@@ -205,7 +190,10 @@ function MainHeader() {
             <MainNav presentNav={presentNav}>
               {menuData.map((e) => {
                 return (
-                  <li key={e.name}>
+                  <li key={e.name} onClick={()=>{
+                    localStorage.setItem('presentNav', e.id)
+                    setNavClick(!navClick)
+                  }}>
                     <Link to={`/${e.url}`}>{e.name}</Link>
                   </li>
                 );

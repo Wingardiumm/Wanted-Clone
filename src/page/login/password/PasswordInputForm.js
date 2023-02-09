@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { loginApi } from "../../../api";
 import { SignErrorMessage } from "../styleComponent/ErrorMessage";
 import { BtnText, NextButton } from "../styleComponent/NextButton";
 import { SignUpInput } from "../styleComponent/SignUpInput";
@@ -57,11 +58,7 @@ function PasswordInputForm() {
         setPassword(e.target.value);
     }
     const submit =()=>{
-        axios
-      .post("https://dev.risingserver13forever.shop/app/login", {
-        email: email,
-        password : password,
-      })
+       loginApi.signUp(email,password)
       .then((Response) => {
         console.log(Response.data);
         if(Response.data.isSuccess){

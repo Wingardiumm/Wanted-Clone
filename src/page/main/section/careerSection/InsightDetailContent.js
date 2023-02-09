@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { insightApi } from "../../../../api";
 import InsightDetailRecommendedItem from "./InsightDetailRecommendedItem";
 
 const ContentWrapper = styled.div`
@@ -116,10 +118,10 @@ const TextMoreBtn = styled.div`
   }
 `;
 const InsightDetailRecommendedList = styled.aside`
-width: 100%;
+  width: 100%;
   padding: 30px 20px 37.5px;
   background-color: #f7f7f7;
-  h3{
+  h3 {
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -130,9 +132,24 @@ width: 100%;
 `;
 function InsightDetailContent() {
   const [moreOn, setMoreOn] = useState(false);
-
-  useEffect(()=>{
-  },[])
+  const [insightData, setInsightData] = useState();
+  const [insightAllData, setInsightAllData] = useState();
+  const insightId = useParams();
+  useEffect(() => {
+    insightApi
+      .getInsightDetail(insightId.id)
+      .then((Response) => {
+        console.log(Response.data);
+        if (Response.data.isSuccess) {
+          setInsightData(Response.data.result[0]);
+          setInsightAllData(Response.data.result);
+          console.log(insightData);
+        }
+      })
+      .catch((Error) => {
+        console.log(Error);
+      });
+  }, []);
 
   return (
     <ContentWrapper>
@@ -142,22 +159,19 @@ function InsightDetailContent() {
       />
       <ContentBodyWrapper>
         <ContentBodyTop>
-          <p className="insight-detail-tag">개발,데이터</p>
-          <h2 className="insight-detail-title">Digital Divide Solution : 오픈 통계 패키지</h2>
+          <p className="insight-detail-tag">
+            {insightData?.insightTag1},{insightData?.insightTag2},{insightData?.insightTag3}
+          </p>
+          <h2 className="insight-detail-title">{insightData?.insightTitle}</h2>
           <div className="insight-detail-logo">
             <div>
               <img src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Ffavicon%2F144x144.png&w=80&q=75" alt="" />
             </div>
-            <span>윤화영 외</span>
+            <span>{insightData?.insightMakerName}</span>
           </div>
         </ContentBodyTop>
         <hr />
-        <ContentBodyDescription moreOn={moreOn}>
-          통계 초보자 및 일반인이 쉽게 사용할 수 있도록 데이터를 입력하면 자동으로 데이터를 인식하여 최적의 분석을 실행하고 결과물도 PDF, HTML, 워드, 대쉬보드
-          재현가능하게 자동생성되고, 스프레드쉬트 계열의 정형데이터를 넘어 다양한 비정형 데이터(시계열, 공간지리, 텍스트, 이미지 등)도 처리할 수 있도록 데이터
-          가져오기(auto-Ingest), 탐색적 분석(auto-EDA), 모형(auto-ML), 시각화(auto-Viz), 표(auto-Table), 보고서(auto-Report) 영역에 Auto-X 기술을 적용하여
-          클라우드 SaaS 기반 통계 패키지 SW 개발.
-        </ContentBodyDescription>
+        <ContentBodyDescription moreOn={moreOn}>{insightData?.insightContents}</ContentBodyDescription>
         <TextMoreBtn moreOn={moreOn}>
           <button
             type="button"
@@ -165,25 +179,34 @@ function InsightDetailContent() {
               setMoreOn(!moreOn);
             }}
           >
-            <span>더보기</span>
-            <span>
-              <svg className="SvgIcon_SvgIcon__root__svg__DKYBi" viewBox="0 0 19 19">
-                <path
-                  d="M2.71967 5.71967C2.98594 5.4534 3.4026 5.4292 3.69621 5.64705L3.78033 5.71967L9.499 11.438L15.2162 5.7211C15.4824 5.45479 15.899 5.43051 16.1927 5.64832L16.2768 5.72092C16.5431 5.98715 16.5674 6.40381 16.3496 6.69745L16.277 6.78158L10.0304 13.0302C9.76416 13.2966 9.34745 13.3208 9.0538 13.103L8.96967 13.0303L2.71967 6.78033C2.42678 6.48744 2.42678 6.01256 2.71967 5.71967Z"
-                  fill="currentColor"
-                ></path>
-              </svg>
-            </span>
+            {insightData?.insightContents.length > 150 && (
+              <>
+                <span>더보기</span>
+                <span>
+                  <svg className="SvgIcon_SvgIcon__root__svg__DKYBi" viewBox="0 0 19 19">
+                    <path
+                      d="M2.71967 5.71967C2.98594 5.4534 3.4026 5.4292 3.69621 5.64705L3.78033 5.71967L9.499 11.438L15.2162 5.7211C15.4824 5.45479 15.899 5.43051 16.1927 5.64832L16.2768 5.72092C16.5431 5.98715 16.5674 6.40381 16.3496 6.69745L16.277 6.78158L10.0304 13.0302C9.76416 13.2966 9.34745 13.3208 9.0538 13.103L8.96967 13.0303L2.71967 6.78033C2.42678 6.48744 2.42678 6.01256 2.71967 5.71967Z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
+                </span>
+              </>
+            )}
           </button>
         </TextMoreBtn>
       </ContentBodyWrapper>
       <InsightDetailRecommendedList>
         <h3>함께 보면 좋은 콘텐츠</h3>
+        {insightAllData?.length > 1 &&
+          insightAllData?.map((data, i) => {
+            if (i > 0) {
+              return <InsightDetailRecommendedItem data={data} />;
+            }
+          })}
+        {/* <InsightDetailRecommendedItem/>
         <InsightDetailRecommendedItem/>
         <InsightDetailRecommendedItem/>
-        <InsightDetailRecommendedItem/>
-        <InsightDetailRecommendedItem/>
-        <InsightDetailRecommendedItem/>
+        <InsightDetailRecommendedItem/> */}
       </InsightDetailRecommendedList>
     </ContentWrapper>
   );

@@ -2,8 +2,13 @@ import _ from "lodash";
 import React, { useCallback, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import AleadyLoginRoute from "./component/AleadyLoginRoute";
 import MainLayOut from "./component/MainLayOut";
 import NotFooterLayOut from "./component/NotFooterLayOut";
+import PrivateResumeRoute from "./component/PrivateResumeRoute";
+import PrivateRoute from "./component/PrivateResumeRoute";
+import PublicRoute from "./component/PublicRoute";
+import ScrollToTop from "./component/ScrollToTop";
 import EmploymentPage from "./page/employment/EmploymentPage";
 import JobDetailPage from "./page/jobDetail/JobDetailPage";
 import LoginPage from "./page/login/LoginPage";
@@ -18,7 +23,7 @@ import GlobalStyle from "./style/GlobalStyle";
 
 function App() {
   const [vh, setVh] = useState(window.innerHeight * 0.01);
-
+  const access = localStorage.getItem("jwt");
   // eslint-disable-next-line
   const screenSize = useCallback(
     _.debounce(() => {
@@ -37,23 +42,23 @@ function App() {
 
   return (
     <React.Fragment>
-      <GlobalStyle></GlobalStyle>
+      <GlobalStyle/>
+      <ScrollToTop/>
       <Routes>
         <Route element={<MainLayOut />}>
           <Route path="/" element={<MainPage></MainPage>}>
             <Route path="insight/:id" element={<InsightDetail />} />
           </Route>
-          <Route path="/resumeLanding" element={<ResumeLandingPage></ResumeLandingPage>} />
           <Route path="/employment/:id" element={<JobDetailPage />} />
         </Route>
         <Route element={<NotFooterLayOut />}>
-          <Route path="/resume" element={<ResumePage />} />
-          <Route path="/resume/:id" element={<ResumeDetailPage />} />
+          <Route path="/resume" element={<PrivateResumeRoute authenticated={access} component={<ResumePage />} />} />
+          <Route path="/resume/:id" element={<PrivateResumeRoute authenticated={access} component={<ResumeDetailPage />} />} />
           <Route path="/employment" element={<EmploymentPage />} />
-          <Route path="/profile/bookmarks" element={<BookmarkPage/>}/>
-          <Route path="/mywanted" element={<MyWantedPage/>}/>
+          <Route path="/profile/bookmarks" element={<BookmarkPage />} />
+          <Route path="/profile/mywanted" element={<MyWantedPage />} />
         </Route>
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<PublicRoute restricted={true} component={<LoginPage />} />} />
       </Routes>
     </React.Fragment>
   );

@@ -17,6 +17,9 @@ const ResumeListContainer = styled.div`
 function ResumePage() {
   const [resumeList, setResumeList] = useState();
   useEffect(() => {
+    refreshResumeList();
+  }, []);
+  const refreshResumeList = ()=>{
     const userId = localStorage.getItem('user_id')
     resumeApi.getResumeList(userId)
       .then((Response) => {
@@ -28,12 +31,12 @@ function ResumePage() {
       .catch((Error) => {
         console.log(Error);
       });
-  }, []);
+  }
   return (
     <ResumeListContainer>
       <ResumeBanner />
       <ResumeListHeader />
-      <ResumeList resumeList={resumeList}/>
+      <ResumeList resumeList={resumeList} refreshResumeList={refreshResumeList}/>
     </ResumeListContainer>
   );
 }

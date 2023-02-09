@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ResumeBtn, { ResumeBtnStyle } from "./ResumeStyle";
 import { SectionContentWrapper } from "./ResumeLandingPagestyleComponents";
+import { useNavigate } from "react-router-dom";
 
 const SectionBackground = styled.div`
   width: 100%;
@@ -48,6 +49,7 @@ const SectionBackground = styled.div`
 `;
 
 function ResumeLandingPageFirstSection() {
+  const navigate = useNavigate()
   return (
     <SectionBackground>
       <SectionContentWrapper>
@@ -56,8 +58,8 @@ function ResumeLandingPageFirstSection() {
           원티드 이력서로 지원 시 <br />
           일반 이력서보다 서류 합격률이 2배 높아집니다.
         </h2>
-        <ResumeBtnStyle>이력서 관리</ResumeBtnStyle>
-        <ResumeBtnStyle>새 이력서 작성</ResumeBtnStyle>
+        <ResumeBtnStyle type="button" onClick={()=>navigate('/login')}>이력서 관리</ResumeBtnStyle>
+        <ResumeBtnStyle type="button" onClick={()=>navigate('/login')}>새 이력서 작성</ResumeBtnStyle>
       </SectionContentWrapper>
     </SectionBackground>
   );

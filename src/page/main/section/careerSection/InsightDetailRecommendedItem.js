@@ -45,7 +45,7 @@ const ItemContent = styled.div`
     margin: 4px 0;
   }
 `;
-function InsightDetailRecommendedItem() {
+function InsightDetailRecommendedItem({data}) {
   return (
     <ItemContainer to={"/"}>
       <ItemWrapper>
@@ -54,9 +54,9 @@ function InsightDetailRecommendedItem() {
           src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fwanted.video.kr.kollus.com%2Fkr%2Fsnapshot%2Fwanted%2F20211218%2F6%2F33398540.jpg&w=700&q=75"
         />
         <ItemContent>
-          <p>개발, 데이터</p>
-          <h5 className=".insight-recommended-title">데이터사이언스와 오픈소스</h5>
-          <p>이혜선</p>
+          <p>{data?.recommendedInsightTag1},{data?.recommendedInsightTag2},{data?.recommendedInsightTag3}</p>
+          <h5 className=".insight-recommended-title">{data?.recommendedInsightTitle}</h5>
+          <p>{data?.recommendedInsightMakerName}</p>
         </ItemContent>
       </ItemWrapper>
     </ItemContainer>

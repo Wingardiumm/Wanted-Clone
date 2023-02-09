@@ -5,16 +5,12 @@ import { Link } from "react-router-dom";
 function KakaoMap({ detailData }) {
   const { kakao } = window;
   const container = useRef(null);
-  const centerRef = useRef({ lat: null, lng: null });
   useEffect(() => {
-    centerRef.current.lat = Number(detailData?.latitude);
-    centerRef.current.lng = Number(detailData?.longitude);
     const options = {
       //지도를 생성할 때 필요한 기본 옵션
-      center: new kakao.maps.LatLng(centerRef.current.lat,centerRef.current.lng), //지도의 중심좌표.
+      center: new kakao.maps.LatLng(Number(detailData?.latitude),Number(detailData?.longitude)), //지도의 중심좌표.
       level: 3, //지도의 레벨(확대, 축소 정도)
     };
-    console.log(centerRef)
     const map = new kakao.maps.Map(container.current, options);
     const markerPosition = new kakao.maps.LatLng(Number(detailData?.latitude), Number(detailData?.longitude));
     const marker = new kakao.maps.Marker({
@@ -22,7 +18,7 @@ function KakaoMap({ detailData }) {
     });
     marker.setMap(map);
     return () => {}; 
-  }, []);
+  }, [detailData]);
   return <div 
   onClick={() =>
     window.open(

@@ -15,11 +15,11 @@ const mainTabData = [
     name: "개발",
     tag:"dev",
   },
-  {
-    id: 4,
-    name: "취업/이직",
-    tag:"none",
-  },
+  // {
+  //   id: 4,
+  //   name: "취업/이직",
+  //   tag:"none",
+  // },
   {
     id: 5,
     name: "데이터",
@@ -40,11 +40,11 @@ const mainTabData = [
     name: "디자인",
     tag:"design",
   },
-  {
-    id: 9,
-    name: "조직문화",
-    tag:"none"
-  },
+  // {
+  //   id: 9,
+  //   name: "조직문화",
+  //   tag:"none"
+  // },
   {
     id: 10,
     name: "브랜딩",

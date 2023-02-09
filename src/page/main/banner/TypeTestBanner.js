@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const BannerContainer = styled.div`
   max-width: 1060px;
-  width: 87.72%;
+  width: 100%;
   margin: 0 auto 48px;
 `;
 const BannerBackground = styled.div`

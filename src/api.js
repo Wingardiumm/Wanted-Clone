@@ -1,5 +1,4 @@
 import axios from "axios";
-import { json } from "react-router-dom";
 
 const api = axios.create({
   baseURL: "https://prod.risingserver13forever.shop/",
@@ -40,10 +39,15 @@ export const loginApi = {
       receiveEmailAd: receiveEmailAd,
     }),
   users: ( userId) => api.get(`app/users/${userId}`),
+  signUp : (email,password)=> api.post("app/login",{
+    email : email,
+    password:password,
+  })
 };
 
 export const insightApi = {
   getInsight: (choiceTabId) => api.get("app/insights?", { params: { tagId: choiceTabId } }),
+  getInsightDetail: (id) => api.get(`app/insights/${id}`),
 };
 export const eventApi = {
   getMainEventBanner: () => api.get("app/recommended-events"),
@@ -64,6 +68,7 @@ export const resumeApi = {
   addActivity: (id) => api.post(`app/resumes/${id}/activities`),
   getResumeList: (id) => api.get(`app/users/${id}/resumes`),
   addNewResume: () => api.post("app/resumes"),
+  removeResume: (id) => api.patch(`app/resumes/${id}/status`),
   changeCareerList: (id, nameCompany, positionCompany, inCompanyTrueFalse, yearJoin, monthJoin, yearResignation, monthResignation) => {
     return api.patch(`app/careers/${id}`, {
       nameCompany: nameCompany,

@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { loginApi } from '../../../api'
 import MyPageAside from './MyPageAside'
 import MyPageContent from './MyPageContent'
 
@@ -24,14 +25,31 @@ const MyPageContentContainer = styled.div`
     flex-direction: row;
 `
 function MyWantedPage() {
+    const [userData, setUserData] = useState();
+    useEffect(()=>{
+      const jwt = localStorage.getItem("jwt");
+      const userId = localStorage.getItem("user_id");
+      console.log(jwt,userId)
+      loginApi
+          .users(userId)
+          .then((Response) => {
+            console.log(Response.data);
+            if(Response.data.isSuccess){
+              setUserData(Response.data.result)
+            }
+          })
+          .catch((Error) => {
+            console.log(Error);
+          });
+    },[])
   return (
     <MyPageContainer>
         <MyPageTitle>
             MY 원티드
         </MyPageTitle>
         <MyPageContentContainer>
-            <MyPageAside/>
-            <MyPageContent/>
+            <MyPageAside userData={userData}/>
+            <MyPageContent userData={userData}/>
         </MyPageContentContainer>
     </MyPageContainer>
   )

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import SecondNavModal from "./SecondNavModal";
-
+import { mainNavData } from "../../../../data/mainNavData";
 const HeaderModalBackground = styled.div`
   position: fixed;
   left: 0;
@@ -63,14 +63,14 @@ const FirstSectionList = styled.ul`
   }
 `;
 const FreelancerNav = styled.li`
-  width: ${(props)=>(props.firstListMouseOn) ? '90%' : '100%'};
+  width: ${(props) => (props.firstListMouseOn ? "90%" : "100%")};
   padding: 8px 20px;
-  box-sizing:border-box;
-  a{
+  box-sizing: border-box;
+  a {
     display: block;
     height: max-content;
     padding: 0;
-    background-color: #fff!important;
+    background-color: #fff !important;
   }
   .freelancer-banner {
     width: 100%;
@@ -80,16 +80,18 @@ const FreelancerNav = styled.li`
     border-radius: 4px;
     background: #f5f7ff url(https://image.wanted.co.kr/gigs/www/wanted/gigs_banner_background_img.png) no-repeat 100%;
     background-size: 160px 50px;
-    span{
-        margin-left: 16px;
-    font-weight: 700;
-    font-size: 13px;
-    color: #0a4ff4;
+    span {
+      margin-left: 16px;
+      font-weight: 700;
+      font-size: 13px;
+      color: #0a4ff4;
     }
   }
 `;
 function MainNavModal({ setNavMenuOn }) {
   const [firstListMouseOn, setFirstListMouseOn] = useState(false);
+  const [dataId, setDataId] = useState();
+  const [secondData, setSecondData] = useState();
   return (
     <HeaderModalBackground>
       <NavDistruct
@@ -100,32 +102,41 @@ function MainNavModal({ setNavMenuOn }) {
       >
         <NavFirstSection>
           <FirstSectionList>
-            <li>
+            <li onMouseEnter={() => {
+                  setFirstListMouseOn(false);
+                }}>
               <Link className="all-op" to={"/"}>
                 직군 전체
               </Link>
             </li>
-            <li
-              onMouseEnter={() => {
-                setFirstListMouseOn(true);
-              }}
-            >
-              <Link to={"/"}>
-                <em>개발</em>
-              </Link>
-            </li>
+
+            {mainNavData.map((data) => (
+              <li
+                key={data.id}
+                onMouseEnter={() => {
+                  setFirstListMouseOn(true);
+                  setDataId(data.id);
+                  setSecondData(data.second);
+                }}
+              >
+                <Link to={"/"}>
+                  <em>{data.first}</em>
+                </Link>
+              </li>
+            ))}
+
             <FreelancerNav firstListMouseOn={firstListMouseOn}>
               <Link to={"/"}>
                 <div className="freelancer-banner">
-                    <span>프리랜서</span>
+                  <span>프리랜서</span>
                 </div>
               </Link>
             </FreelancerNav>
           </FirstSectionList>
         </NavFirstSection>
-
         {/* 세부Nav 모달열기*/}
-        {firstListMouseOn && <SecondNavModal />}
+
+       {firstListMouseOn&& <SecondNavModal secondData={secondData} />}
       </NavDistruct>
     </HeaderModalBackground>
   );

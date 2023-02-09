@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { ResumeItemWrapper } from './ResumeList';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { resumeApi } from "../../../api";
+import { ResumeItemWrapper } from "./ResumeList";
 
 const ResumeItemBadge = styled.div`
   padding-left: 18px;
@@ -117,52 +118,78 @@ const ResumeMenuDropDown = styled.div`
   }
 `;
 
-function ResumeListItem({resumeItem}) {
-    const resumeMenuData = ["이력서 이름 변경", "사본 만들기", "다운로드", "이력서 삭제"];
+function ResumeListItem({ resumeItem,refreshResumeList }) {
+  const resumeMenuData = ["이력서 이름 변경", "사본 만들기", "다운로드", "이력서 삭제"];
   const [menuModalOn, setMenuModalOn] = useState(false);
   const navigate = useNavigate();
-  const menuHandling = () => {
-    console.log('됨')
+  const menuHandling = (e) => {
+    e.stopPropagation();
+    console.log("됨");
     setMenuModalOn(!menuModalOn);
   };
+  const deleteResume = (e)=>{
+    e.stopPropagation();
+    console.log('삭!')
+    resumeApi.removeResume(resumeItem.resumeId)
+    .then((Response)=>{
+      console.log(Response.data)
+      if(Response.data.isSuccess){
+        refreshResumeList();
+      }
+    }).catch((Error)=>{
+      console.log(Error)
+    })
+  }
   return (
-    <ResumeItemWrapper onClick={()=>{
-      navigate(`/resume/${resumeItem.resumeId}`)
-    }}>
-        <ResumeItemBadge />
-        <ResumeItemTitle>
-            {/* 제목의 경우 작성중, 작성완료 상태에 따라 글자 색 변환 */}
-          <h3>{resumeItem.resumeTitle}</h3>
-          <p>{resumeItem.updatedAt}</p>
-        </ResumeItemTitle>
-        <ResumeItemStatus>
-          <ResumeItemLanguage>한{/* 한 EN あ  */}</ResumeItemLanguage>
-          {/* 작성중 작성완료 상태에 따라 글자 색 변환 */}
-          <span>{resumeItem.resumeCompletion}</span>
-          <ResumeItemMenu>
-            <button onClick={menuHandling}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg">
-                <path d="M10 6C10 7.104 10.896 8 12 8C13.104 8 14 7.104 14 6C14 4.896 13.104 4 12 4C10.896 4 10 4.896 10 6Z" fill="#767676"></path>
-                <path d="M12 14C10.896 14 10 13.104 10 12C10 10.896 10.896 10 12 10C13.104 10 14 10.896 14 12C14 13.104 13.104 14 12 14Z" fill="#767676"></path>
-                <path d="M12 20C10.896 20 10 19.104 10 18C10 16.896 10.896 16 12 16C13.104 16 14 16.896 14 18C14 19.104 13.104 20 12 20Z" fill="#767676"></path>
-              </svg>
-            </button>
-            {menuModalOn && (
-              <>
-                <ResumeItemMenuModalOverlay onClick={menuHandling} />
-                <ResumeMenuDropDown>
-                  {resumeMenuData.map((data) => (
-                    <button type="button" key={data}>
-                      {data}
-                    </button>
-                  ))}
-                </ResumeMenuDropDown>
-              </>
-            )}
-          </ResumeItemMenu>
-        </ResumeItemStatus>
+    <ResumeItemWrapper
+      onClick={() => {
+        navigate(`/resume/${resumeItem.resumeId}`);
+      }}
+    >
+      <ResumeItemBadge />
+      <ResumeItemTitle>
+        {/* 제목의 경우 작성중, 작성완료 상태에 따라 글자 색 변환 */}
+        <h3>{resumeItem.resumeTitle}</h3>
+        <p>{resumeItem.updatedAt}</p>
+      </ResumeItemTitle>
+      <ResumeItemStatus>
+        <ResumeItemLanguage>한{/* 한 EN あ  */}</ResumeItemLanguage>
+        {/* 작성중 작성완료 상태에 따라 글자 색 변환 */}
+        <span>{resumeItem.resumeCompletion}</span>
+        <ResumeItemMenu>
+          <button type="button" onClick={(e) => menuHandling(e)}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg">
+              <path d="M10 6C10 7.104 10.896 8 12 8C13.104 8 14 7.104 14 6C14 4.896 13.104 4 12 4C10.896 4 10 4.896 10 6Z" fill="#767676"></path>
+              <path d="M12 14C10.896 14 10 13.104 10 12C10 10.896 10.896 10 12 10C13.104 10 14 10.896 14 12C14 13.104 13.104 14 12 14Z" fill="#767676"></path>
+              <path d="M12 20C10.896 20 10 19.104 10 18C10 16.896 10.896 16 12 16C13.104 16 14 16.896 14 18C14 19.104 13.104 20 12 20Z" fill="#767676"></path>
+            </svg>
+          </button>
+          {menuModalOn && (
+            <>
+              <ResumeItemMenuModalOverlay onClick={(e) => menuHandling(e)} />
+              <ResumeMenuDropDown>
+                {resumeMenuData.map((data, i) => {
+                  if (i < 3) {
+                    return (
+                      <button type="button" key={data}>{data}</button>
+                    );
+                  } else{
+                    return (
+                      <button type="button" key={data} onClick={(e) => {
+                        deleteResume(e)
+                      }}>
+                        {data}
+                      </button>
+                    );
+                  }
+                })}
+              </ResumeMenuDropDown>
+            </>
+          )}
+        </ResumeItemMenu>
+      </ResumeItemStatus>
     </ResumeItemWrapper>
-  )
+  );
 }
 
-export default ResumeListItem
+export default ResumeListItem;

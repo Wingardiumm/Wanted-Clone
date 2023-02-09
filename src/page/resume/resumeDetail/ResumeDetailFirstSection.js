@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { resumeApi } from "../../../api";
 import { ResumeInputStyle } from "./ResumeInputStyle";
 
 const ResumeDetailFirstSectionWrapper = styled.div`
@@ -34,21 +36,38 @@ const DetailBasicInfoTitle = styled.div`
 
 `;
 function ResumeDetailFirstSection() {
+  const [resumeData, setResumeData] = useState();
+  const resumeId = useParams();
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    console.log(resumeId, jwt);
+    resumeApi
+      .getResumeDetail(resumeId.id, jwt)
+      .then((Response) => {
+        console.log(Response.data);
+        if (Response.data.isSuccess) {
+          setResumeData(Response.data.result[0])
+        }
+      })
+      .catch((Error) => {
+        console.log(Error);
+      });
+  }, []);
   return (
     <ResumeDetailFirstSectionWrapper>
       <DetailBasicInfoTitle>
         <div>
-          <ResumeInputStyle className="resume-detail-title" placeholder="이력서 제목(필수)" maxLength={100}/>
+          <ResumeInputStyle className="resume-detail-title" defaultValue={resumeData?.resumeTitle} placeholder="이력서 제목(필수)" maxLength={100}/>
             {/* value 에 이름 기본으로 들어감 */}
         </div>
         <div>
-            <ResumeInputStyle className="resume-detail-name" value={"Crap"}/>
+            <ResumeInputStyle className="resume-detail-name" defaultValue={resumeData?.name}/>
         </div>
         <div>
-            <ResumeInputStyle className="resume-detail-email" value={"crap@email.com"}/>
+            <ResumeInputStyle className="resume-detail-email" defaultValue={resumeData?.email}/>
         </div>
         <div>
-            <ResumeInputStyle className="resume-detail-phone" value={"01022222222"}/>
+            <ResumeInputStyle className="resume-detail-phone" defaultValue={resumeData?.phoneNumber}/>
         </div>
       </DetailBasicInfoTitle>
     </ResumeDetailFirstSectionWrapper>

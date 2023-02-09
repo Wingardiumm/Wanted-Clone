@@ -59,15 +59,17 @@ const SecondSectionList = styled.li`
     }
   }
 `;
-function SecondNavModal() {
+function SecondNavModal({ secondData }) {
   return (
     <SecondNavDistruct>
       <SecondSection>
-        <SecondSectionList>
-          <Link to={"/"}>개발 전체</Link>
-          {/* <i className="icon-arrow_right"></i> */}
-          <ArrowForwardIosIcon></ArrowForwardIosIcon>
-        </SecondSectionList>
+        {secondData?.map((data,i) => (
+          <SecondSectionList key={i}>
+            <Link to={"/"}>{data}</Link>
+            {/* <i className="icon-arrow_right"></i> */}
+            <ArrowForwardIosIcon></ArrowForwardIosIcon>
+          </SecondSectionList>
+        ))}
       </SecondSection>
     </SecondNavDistruct>
   );

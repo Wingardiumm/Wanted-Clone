@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ResumeBtnStyle, ResumeLandingSectionWrapper } from "./ResumeStyle";
 
@@ -26,10 +27,11 @@ const StyledSection = styled(ResumeLandingSectionWrapper)`
 `;
 
 function ResumeFourthSection() {
+  const navigate = useNavigate();
   return (
     <StyledSection>
       <ResumeBtnStyle>샘플 다운로드</ResumeBtnStyle>
-      <ResumeBtnStyle>새 이력서 작성</ResumeBtnStyle>
+      <ResumeBtnStyle type="button" onClick={()=>navigate('/login')}>새 이력서 작성</ResumeBtnStyle>
     </StyledSection>
   );
 }

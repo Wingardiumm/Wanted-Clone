@@ -55,7 +55,7 @@ const ResumeAddWrapper = styled.div`
   }
 `;
 
-function ResumeList({resumeList}) {
+function ResumeList({resumeList,refreshResumeList}) {
   const navigate = useNavigate();
   const addResume = ()=>{
     resumeApi.addNewResume()
@@ -110,7 +110,7 @@ function ResumeList({resumeList}) {
         </ResumeAddWrapper>
       </ResumeItemWrapper>
         {resumeList?.map((data)=>(
-          <ResumeListItem key={data.resumeId} resumeItem = {data}/>
+          <ResumeListItem key={data.resumeId} resumeItem = {data} refreshResumeList={refreshResumeList}/>
         ))}
     </ResumeListWrapper>
   );

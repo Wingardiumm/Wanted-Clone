@@ -2,6 +2,7 @@ export const profileModalData = [
   {
     id: 1,
     name: "MY 원티드",
+    uri:"mywanted"
   },
   {
     id: 2,

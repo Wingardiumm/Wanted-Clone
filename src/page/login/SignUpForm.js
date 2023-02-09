@@ -396,7 +396,7 @@ function SignUpForm() {
           dispatch(setSignUpPageOn(false));
           dispatch(setInputPasswordPageOn(false));
           dispatch(setSignInPageOn(true));
-          console.log("회원가입 성공");
+          alert("회원가입 완료");
         }
       })
       .catch((Error) => {
