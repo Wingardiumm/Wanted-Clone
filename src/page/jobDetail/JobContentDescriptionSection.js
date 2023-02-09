@@ -48,7 +48,7 @@ function JobContentDescriptionSection({detailData}) {
       <JobDescriptionWrapper>
         <p>
           <span>
-            스누아이랩 (SNUAILAB)은 Computer Vision 기술 및 Big-Data 처리 분야의 세계적인 권위자인 서울대학교 교수진 6명과 삼성종합기술원과 삼성테크윈 (현,
+            {/* 스누아이랩 (SNUAILAB)은 Computer Vision 기술 및 Big-Data 처리 분야의 세계적인 권위자인 서울대학교 교수진 6명과 삼성종합기술원과 삼성테크윈 (현,
             한화테크윈)의 핵심 연구원들이 주축이 되어 설립한 Vision AI 분야의 전문 JV 기업입니다.
             <br />
             또한, 서울대학교 기술지주와 교수들이 직접 지분 참여하여 설립된 서울대 공식 자회사이기도 합니다.
@@ -60,30 +60,26 @@ function JobContentDescriptionSection({detailData}) {
             <br />
             스누아이랩 (SNUAILAB)은 국내 최고의 대학인 서울대학교 연구실과의 긴밀한 공동 연구를 통하여 딥러닝, 컴퓨터 비전, 영상 감시 분야에 대한 활발한
             연구/개발을 진행하고 있으며, 이러한 연구 결과를 바탕으로 스마트 팜, 스마트 팩토리 등 다양한 산업 분야에 알맞은 솔루션을 제공하는 것이 스누아이랩의
-            목표입니다.
+            목표입니다. */}
+            {detailData?.positionExplanation}
           </span>
         </p>
         <h6>주요업무</h6>
-        <p>내용</p>
+        <p>{detailData?.mainBusiness}</p>
         <h6>자격요건</h6>
-        <p>내용</p>
+        <p>{detailData?.qualificationRequirement}</p>
         <h6>우대사항</h6>
-        <p>내용</p>
+        <p>{detailData?.preferentialTreatment}</p>
         <h6>혜택 및 복지</h6>
-        <p>내용</p>
+        <p>{detailData?.benefitAndWelfare}</p>
         <h6>기술스택 ・ 툴</h6>
         <div>
           <JobDetailSkillTagWrapper>
             <JobDetailSkillTag>Git</JobDetailSkillTag>
             <JobDetailSkillTag>Git</JobDetailSkillTag>
-            <JobDetailSkillTag>Git</JobDetailSkillTag>
-            <JobDetailSkillTag>Git</JobDetailSkillTag>
-            <JobDetailSkillTag>Git</JobDetailSkillTag>
             <JobDetailSkillTag>Embedded Linux</JobDetailSkillTag>
             <JobDetailSkillTag>Git</JobDetailSkillTag>
             <JobDetailSkillTag>Embedded Linux</JobDetailSkillTag>
-            <JobDetailSkillTag>Git</JobDetailSkillTag>
-            <JobDetailSkillTag>Git</JobDetailSkillTag>
             <JobDetailSkillTag>Git</JobDetailSkillTag>
             <JobDetailSkillTag>Git</JobDetailSkillTag>
           </JobDetailSkillTagWrapper>

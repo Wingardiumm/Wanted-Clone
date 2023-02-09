@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
-import { resumeApi } from "../../../../api";
-import { ResumeDetailSecondListAddBtn } from "./ResumeDetailAddListBtn";
+import { resumeApi } from "../../../../../api";
 
 const DraggableHandle = styled.div`
   position: absolute;
@@ -77,37 +76,11 @@ const PeriodDate = styled.div`
     margin-left: 4px;
   }
 `;
-const PeriodFromCheckBox = styled.div`
-  margin: 16px 0 30px;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: start;
-  align-items: flex-start;
-  color: rgba(0, 0, 0, 0.4);
-  font-size: 14px;
-  font-weight: 600;
-  input {
-    top: 2px;
-    width: 14px;
-    height: 14px;
-    margin: 0 5px 0 0;
-    position: relative;
-    border: 0;
-    background-image: url(https://static.wanted.co.kr/images/userweb/checkbox.svg);
-    background-size: cover;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-  }
-  label {
-    padding: 0;
-    font-weight: 400;
-  }
-`;
 const SearchModalButton = styled.input`
   cursor: pointer;
   color: #3b3d40;
   white-space: nowrap !important;
-  font-size: 20px;
+  font-size: 23px !important;
   font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -121,12 +94,20 @@ const SearchModalButton = styled.input`
   width: 100%;
   white-space: pre-wrap;
   word-wrap: break-word;
-  color: #ccc !important;
   width: fit-content;
 `;
 const DraggableListItemWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    border: none;
+
+  }
   > div {
     display: flex;
     flex-direction: column;
@@ -162,47 +143,36 @@ const ResumeDetailListCloseBtn = styled.button`
   top: 21px;
   right: 15px;
 `;
-function ResumeDetailDraggableList({ index, testData }) {
-  const [startYear, setStartYear] = useState('');
-  const [startMonth, setStartMonth] = useState('');
-  const [endYear, setEndYear] = useState();
-  const [endMonth, setEndMonth] = useState();
-  const [currentlyTrueFalse, setCurrentlyTrueFalse] = useState(false)
-  const [itemId, setItemId]= useState()
-  const [mainText, setMainText] = useState('')
-  const [subText, setSubText] = useState('')
+function ResumeAwardDraggableList({ index, testData,setRender,render }) {
+  const [startYear, setStartYear] = useState("");
+  const [startMonth, setStartMonth] = useState("");
+  const [itemId, setItemId] = useState();
+  const [mainText, setMainText] = useState("");
+  const [subText, setSubText] = useState("");
 
 
-  useEffect(()=>{
-    console.log(testData.idCareer,mainText,subText,currentlyTrueFalse,startYear,startMonth,endYear,endMonth)
+  console.log(testData);
+  useEffect(() => {
+    console.log(testData.idActivity, mainText, subText, startYear, startMonth);
     const timer = setTimeout(() => {
-      resumeApi.changeCareerList(testData.idCareer,mainText,subText,currentlyTrueFalse,startYear,startMonth,endYear,endMonth)
-      .then((Response)=>{
-        console.log(Response.data)
-      })
-      .catch((Error)=>{
-        console.log(Error)
-      })
-    }, 1000)
+      resumeApi
+        .changeActivityList(testData.idActivity, mainText, subText, startYear, startMonth)
+        .then((Response) => {
+          console.log(Response.data);
+          if(Response.data.isSuccess){
+            setRender(!render)
+          }
+        })
+        .catch((Error) => {
+          console.log(Error);
+        });
+    }, 1000);
 
-    return () => clearTimeout(timer)
-  },[startYear,startMonth,endYear,endMonth,currentlyTrueFalse,mainText,subText])
-  // useEffect(()=>{
-  //   console.log("idCareer" in testData)
-  //   if("idCareer" in testData){
-  //     setStartYear(testData?.yearJoin)
-  //     setStartMonth(testData?.monthJoin)
-  //     setEndYear(testData?.yearResignation)
-  //     setEndMonth(testData?.monthResignation)
-  //     setCurrentlyTrueFalse(testData?.inCompanyCurrentlyTrueFalse)
-  //     setItemId(testData?.idCareer)
-  //     setMainText(testData?.nameCompany)
-  //     setSubText(testData?.positionCompany)
-  //     console.log(testData,startYear,itemId,subText)
-  //   }
-  // },[])
+    return () => clearTimeout(timer);
+  }, [startYear, startMonth, mainText, subText]);
+
   return (
-    <Draggable key={`${testData?.idCareer}`} draggableId={`${testData?.idCareer}`} index={index}>
+    <Draggable key={`${testData?.idActivity}`} draggableId={`${testData?.idActivity}`} index={index}>
       {(provided) => (
         <ResumeDraggableList {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
           <DraggableHandle>
@@ -215,49 +185,64 @@ function ResumeDetailDraggableList({ index, testData }) {
                   <PeriodDate>
                     <div>
                       <div>
-                        <input type={"text"} placeholder={"YYYY"} maxLength={4} className="resume-detail-year" defaultValue={testData.yearJoin}
-                        onChange={(e)=>{setStartYear(e.target.value)}}/>
+                        <input
+                          type={"text"}
+                          placeholder={"YYYY"}
+                          maxLength={4}
+                          className="resume-detail-year"
+                          defaultValue={testData.year}
+                          onInput={(e)=>{
+                             e.target.value= e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
+                          }}
+                          onChange={(e) => {
+                            setStartYear(e.target.value);
+                          }}
+                        />
                         <span>
-                          .<input type={"text"} placeholder={"MM"} maxLength={2} className="resume-detail-month"
-                          defaultValue={testData.monthJoin} onChange={(e)=>{setStartMonth(e.target.value)}}/>
+                          .
+                          <input
+                            type={"text"}
+                            placeholder={"MM"}
+                            maxLength={2}
+                            className="resume-detail-month"
+                            defaultValue={testData.month}
+                            onInput={(e)=>{
+                                e.target.value= e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
+                             }}
+                            onChange={(e) => {
+                              setStartMonth(e.target.value);
+                            }}
+                          />
                         </span>
-                      </div>
-                    </div>
-                    <div>
-                      <span style={{ margin: "0 5px" }}>-</span>
-                      <div>
-                        <input type={"text"} placeholder={"YYYY"} maxLength={4} className="resume-detail-year"
-                        defaultValue={testData.yearResignation} onChange={(e)=>{setEndYear(e.target.value)}}/>
-                        <span>
-                          .<input type={"text"} placeholder={"MM"} maxLength={2} className="resume-detail-month"
-                          defaultValue={testData.monthResignation} onChange={(e)=>{setEndMonth(e.target.value)}}/>
-                        </span>
-                        <span style={{ color: "#fe415c" }}>*</span>
                       </div>
                     </div>
                   </PeriodDate>
-                  <PeriodFromCheckBox>
-                    <input type={"checkbox"} checked={currentlyTrueFalse} onChange={(e)=>{setCurrentlyTrueFalse(e.target.value)}}/>
-                    {/* 재직인지 재학인지 데이터에 따라 변할것.. */}
-                    <label>현재 재직중</label>
-                  </PeriodFromCheckBox>
                 </div>
               </div>
               <div>
                 <div>
                   <form action=".">
-                    <SearchModalButton type="text" defaultValue={testData.nameCompany} placeholder={"회사명"} onChange={(e)=>{setMainText(e.target.value)}}/>
+                    <SearchModalButton
+                      type="text"
+                      defaultValue={testData.nameActivity}
+                      placeholder={"활동명"}
+                      onChange={(e) => {
+                        setMainText(e.target.value);
+                      }}
+                    />
                   </form>
                   <div>
-                    <ResumeDetailInputBox type={"text"} maxLength="255" name="title" defaultValue={testData.positionCompany} placeholder="부서명/직책" 
-                    onChange={(e)=>{setSubText(e.target.value)}}/>
+                    <ResumeDetailInputBox
+                      type={"text"}
+                      name="title"
+                      defaultValue={testData.detailActivity}
+                      placeholder="세부사항"
+                      onChange={(e) => {
+                        setSubText(e.target.value);
+                      }}
+                    />
                   </div>
-                  <div>
-                    <div>
-                      <ResumeDetailSecondListAddBtn />
-                    </div>
-                  </div>
-                </div> 
+                </div>
               </div>
               <ResumeDetailListCloseBtn>
                 <svg width="10" height="10" viewBox="0 0 16 16">
@@ -277,4 +262,4 @@ function ResumeDetailDraggableList({ index, testData }) {
   );
 }
 
-export default ResumeDetailDraggableList;
+export default ResumeAwardDraggableList;

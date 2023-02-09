@@ -6,7 +6,7 @@ function ResumeLanguageSkill() {
   return (
     <div>
         <ResumeDetailTitleAndGuide index={5}/>
-        <ResumeCareerContentList/>
+        {/* <ResumeCareerContentList/> */}
     </div>
   )
 }

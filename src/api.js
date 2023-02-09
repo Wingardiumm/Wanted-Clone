@@ -1,10 +1,11 @@
 import axios from "axios";
+import { json } from "react-router-dom";
 
 const api = axios.create({
-  baseURL: "https://dev.risingserver13forever.shop/",
+  baseURL: "https://prod.risingserver13forever.shop/",
   headers: {
-    "x-access-token": `${localStorage.getItem('jwt')}`,
-  }
+    "x-access-token": `${localStorage.getItem("jwt")}`,
+  },
 });
 
 export const loginApi = {
@@ -38,8 +39,7 @@ export const loginApi = {
       receiveAppAd: receiveAppAd,
       receiveEmailAd: receiveEmailAd,
     }),
-  users: (jwt, userId) =>
-    api.get(`app/users/${userId}`),
+  users: ( userId) => api.get(`app/users/${userId}`),
 };
 
 export const insightApi = {
@@ -51,15 +51,51 @@ export const eventApi = {
 
 export const recruitmentApi = {
   getRecruitmentList: () => api.get("app/recruitments"),
-  getRecruitmentDetail: (id) =>
-    api.get(`app/recruitments/${id}`),
+  getRecruitmentDetail: (id) => api.get(`app/recruitments/${id}`),
+  getBookmarkList: (id)=>api.get(`app/users/${id}/bookmarks`),
+  addBookmark: (id)=>api.post(`app/recruitments/${id}/plus-bookmarks`),
+  removeBookmark: (id)=>api.patch(`app/recruitments/${id}/minus-bookmarks`),
 };
 
 export const resumeApi = {
-  getResumeDetail: (id) =>
-    api.get(`app/resumes/${id}`),
+  getResumeDetail: (id) => api.get(`app/resumes/${id}`),
   addCareerList: (id) => api.post(`app/resumes/${id}/careers`),
-  getResumeList:(id)=>api.get(`app/users/${id}/resumes`),
-  addNewResume:()=>api.post("app/resumes")
-};
+  addSchoolList: (id) => api.post(`app/resumes/${id}/schools`),
+  addActivity: (id) => api.post(`app/resumes/${id}/activities`),
+  getResumeList: (id) => api.get(`app/users/${id}/resumes`),
+  addNewResume: () => api.post("app/resumes"),
+  changeCareerList: (id, nameCompany, positionCompany, inCompanyTrueFalse, yearJoin, monthJoin, yearResignation, monthResignation) => {
+    return api.patch(`app/careers/${id}`, {
+      nameCompany: nameCompany,
+      positionCompany: positionCompany,
+      inCompanyCurrentlyTrueFalse: inCompanyTrueFalse,
+      yearJoin: Number(yearJoin),
+      monthJoin: Number(monthJoin),
+      yearResignation: Number(yearResignation),
+      monthResignation: Number(monthResignation),
+    });
+  },
+  changeSchoolList: (id, schoolName, major,inCollegeCurrentlyTrueFalse, yearAdmission, monthAdmission, yearGraduate, monthGraduate,detail,oder) => {
+    return api.patch(`app/schools/${id}`, {
+      school: schoolName,
+      major:major,
+      detail:detail,
+      inCollegeCurrentlyTrueFalse:inCollegeCurrentlyTrueFalse,
+      yearAdmission: Number(yearAdmission),
+      monthAdmission: Number(monthAdmission),
+      yearGraduate: Number(yearGraduate),
+      monthGraduate: Number(monthGraduate),
+      orderSchool:Number(oder),
 
+    });
+  },
+  changeActivityList: (id, nameActivity, detailActivity,yearActivity, monthActivity) => {
+    return api.patch(`app/activities/${id}`, {
+      nameActivity: nameActivity,
+      detailActivity:detailActivity,
+      yearActivity:yearActivity,
+      monthActivity:monthActivity,
+      // orderActivity: Number(orderActivity),
+    });
+  },
+};

@@ -107,7 +107,7 @@ function ProfileModal() {
           {profileModalData.map((data) => {
             return (
               <ProfileItem key={data.id}>
-                <Link to={"/"}>
+                <Link to={`/profile/${data?.uri}`}>
                   <span>{data.name}</span>
                 </Link>
               </ProfileItem>

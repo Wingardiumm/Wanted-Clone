@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const TootipLabel = styled.button`
@@ -34,20 +34,29 @@ const TooltipModal = styled.div`
   background: #fff;
   border: 1px solid #999;
   z-index: 1;
-  display: ${(props) => (props.value ? "block" : "none")};
+  display: ${(props) => (props.modalOn ? "block" : "none")};
   white-space: nowrap;
   top: calc(100% + 4px);
   left: 50%;
   transform: translateX(-50%);
 `;
 
-function JobTooltipLabel({responseRateWord}) {
+function JobTooltipLabel({ responseRateWord,responseRate }) {
+  const [modalOn, setModalOn] = useState(false);
   return (
-    <TootipLabel type="button">
+    <TootipLabel
+      type="button"
+      onMouseEnter={() => {
+        setModalOn(true);
+      }}
+      onMouseLeave={() => {
+        setModalOn(false);
+      }}
+    >
       <div className="job-card-tooltip">
         <span>{responseRateWord}</span>
       </div>
-      <TooltipModal>지원 후 응답받을 확률이 95% 이상입니다.</TooltipModal>
+      <TooltipModal modalOn={modalOn}>지원 후 응답받을 확률이 {responseRate}% 이상입니다.</TooltipModal>
     </TootipLabel>
   );
 }

@@ -5,45 +5,77 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { resumeApi } from "../../../../api";
 import { useParams } from "react-router-dom";
 
-function ResumeCareerContentList({ resumeCareerData }) {
+function ResumeCareerContentList() {
   const [datas, setDatas] = useState();
   const resumeId = useParams();
-  useEffect(()=>{
-    setDatas(resumeCareerData)
-  },[resumeCareerData])
-  console.log(resumeCareerData, "resumeCareerContentList", datas); 
-  const onDragEnd = useCallback((result) => {
-    const { destination, source, draggableId } = result;
-    // 리스트 밖으로 drop되면 destination이 null
-    if (!destination) return;
-    // 출발지와 도착지가 같으면 할 게 없다
-    if (destination.droppableId === source.droppableId && source.index === destination.index) return;
-    console.log(result);
-    const newData = Array.from(datas);
-    const draggItem = newData[draggableId - 1];
-    const destItem = newData[destination.index];
-    console.log(newData);
-    newData.splice(draggableId - 1, 1, destItem);
-    newData.splice(destination.index, 1, draggItem);
-    console.log(newData, draggItem, destItem, destination.index);
-
-    setDatas(newData);
-  }, []);
-
-  const addCareer = () => {
+  useEffect(() => {
     const jwt = localStorage.getItem("jwt");
-    console.log("작동 add 버튼", resumeId.id, jwt);
-    
+    console.log(resumeId, jwt);
     resumeApi
-      .addCareerList(resumeId.id)
+      .getResumeDetail(resumeId.id, jwt)
       .then((Response) => {
         console.log(Response.data);
+        if (Response.data.isSuccess) {
+          setDatas(Response.data.result[0].workExperiences);
+          console.log(datas, Response.data.result[0].workExperiences);
+        }
       })
       .catch((Error) => {
         console.log(Error);
       });
-  };  
-  return (     
+  }, []);
+  // useEffect(()=>{
+  //   setDatas(resumeCareerData)
+  // },[resumeCareerData])
+  // console.log(resumeCareerData, "resumeCareerContentList", datas);
+  const onDragEnd = useCallback(
+    (result) => {
+      const { destination, source, draggableId } = result;
+      // 리스트 밖으로 drop되면 destination이 null
+      if (!destination) return;
+      // 출발지와 도착지가 같으면 할 게 없다
+      if (destination.droppableId === source.droppableId && source.index === destination.index) return;
+      const newData = datas;
+      const draggItem = newData.find((e) => e.idCareer === Number(draggableId));
+      const draggItemInx = newData.findIndex((e) => e.idCareer === Number(draggableId));
+      const destItem = newData[destination.index];
+      newData.splice(draggItemInx, 1);
+      newData.splice(destination.index, 0, draggItem);
+      console.log(newData, draggItem, destItem, destination.index, destItem.idCareer, draggItem.idCareer);
+
+      setDatas(newData);
+    },
+    [datas]
+  );
+  console.log(datas);
+  const addCareer = () => {
+    const jwt = localStorage.getItem("jwt");
+    console.log("작동 add 버튼", resumeId.id, jwt);
+
+    resumeApi
+      .addCareerList(resumeId.id)
+      .then((Response) => {
+        console.log(Response.data);
+        if (Response.data.isSuccess) {
+          resumeApi
+            .getResumeDetail(resumeId.id, jwt)
+            .then((Response) => {
+              console.log(Response.data);
+              if (Response.data.isSuccess) {
+                setDatas(Response.data.result[0].workExperiences);
+                console.log(datas, Response.data.result[0].workExperiences);
+              }
+            })
+            .catch((Error) => {
+              console.log(Error);
+            });
+        }
+      })
+      .catch((Error) => {
+        console.log(Error);
+      });
+  };
+  return (
     <div>
       <ResumeDetailAddListBtn onClick={addCareer} />
       {datas && (

@@ -40,7 +40,7 @@ function JobDetailContent() {
       <div style={{ position: "relative", display:"flex"}}>
         <JobContentWrapper
         // ref={container}
-        >
+        > 
           <JobDetailImgSection detailData={detailData} />
           <JobContentHeaderSection detailData={detailData} />
           <JobContentDescriptionSection detailData={detailData} />

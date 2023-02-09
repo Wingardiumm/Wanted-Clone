@@ -22,23 +22,7 @@ const ResumeDetailWrapper = styled.div`
 `;
 
 function ResumeDetailPage() {
-  const resumeId = useParams();
-  const [resumeCareerData, setResumeCareerData] = useState();
-  useEffect(()=>{
-    const jwt = localStorage.getItem('jwt')
-    console.log(resumeId,jwt)
-    resumeApi.getResumeDetail(resumeId.id,jwt)
-    .then((Response)=>{
-      console.log(Response.data)
-      if(Response.data.isSuccess){
-        setResumeCareerData(Response.data.result[0])
-        console.log(resumeCareerData,Response.data.result[0].workExperiences)
-      }
-    })
-    .catch((Error)=>{
-      console.log(Error);
-    })
-  },[]) 
+  
   return (
     <ResumeDetailPageContainer>
       <ResumeDetailWrapper>
@@ -50,7 +34,7 @@ function ResumeDetailPage() {
             {/* 간단 소개글 */}
             <ResumeDetailBasicIntro/>
             {/* 그 아래쪽 경력 및 학력 등의 리스트 */}
-            <ResumeDetailList resumeCareerData={resumeCareerData}/>
+            <ResumeDetailList/>
         </div>
       </ResumeDetailWrapper>
     </ResumeDetailPageContainer>

@@ -90,15 +90,15 @@ function JobContentHeaderSection({detailData}) {
       <h2> {detailData?.positionName}</h2>
       <div>
         <h6>
-          <Link to={"/"}>스누아이랩</Link>
+          <Link to={"/"}>{detailData?.companyName}</Link>
         </h6>
         <JobTitleTootipContainer>
-          <JobTooltipLabel />
+          <JobTooltipLabel responseRate={detailData?.companyResponseRateInt} responseRateWord={detailData?.companyResponseRateWord}/>
         </JobTitleTootipContainer>
         <span className="job-card-company">
-          서울
+          {detailData?.region}
           <span style={{ margin: "0 3px" }}>·</span>
-          한국
+          {detailData?.country}
         </span>
       </div>
       <JobDetailTagWrapper>

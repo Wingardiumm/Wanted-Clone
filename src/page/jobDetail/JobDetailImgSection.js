@@ -95,25 +95,6 @@ function JobDetailImgSection({ detailData }) {
             return null;
           }
         })}
-
-        <JobImgItemContainer>
-          <img
-            width={"100%"}
-            src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F15791%2Ftjtn6g0qxdium3k8__1080_790.jpg&w=1000&q=75"
-          />
-        </JobImgItemContainer>
-        <JobImgItemContainer>
-          <img
-            width={"100%"}
-            src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F15791%2Ftjtn6g0qxdium3k8__1080_790.jpg&w=1000&q=75"
-          />
-        </JobImgItemContainer>
-        <JobImgItemContainer>
-          <img
-            width={"100%"}
-            src="https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fstatic.wanted.co.kr%2Fimages%2Fcompany%2F15791%2Ftjtn6g0qxdium3k8__1080_790.jpg&w=1000&q=75"
-          />
-        </JobImgItemContainer>
       </JobImgSlider>
     </JobImgContainer>
   );

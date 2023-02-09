@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { recruitmentApi } from "../../api";
 import JobTooltipLabel from "../../component/JobTooltipLabel";
-import { BookmarkNoFilled } from "../main/section/svg/svgComponent";
+import { BookmarkNoFilled, BookMarkSvg } from "../main/section/svg/svgComponent";
 
 const JobCardContainer = styled.div`
   header {
@@ -73,34 +74,100 @@ const JobCardContainer = styled.div`
   }
 `;
 
-function JobCard({jobList}) {
+function JobCard({ jobList, renderBookmarkList, bookmarkList, setBookmarkList, isBookmark = false }) {
+  const [checkBokkmark, setCheckBookmark] = useState(isBookmark ? true : jobList?.checkBookmarks);
+  // useEffect(()=>{
+  //   renderBookmarkList(); 
+  // },[])
+  console.log(isBookmark)
+  const addBookmark = (e) => {
+    e.preventDefault();
+    console.log(bookmarkList);
+    if (!isBookmark) {
+      const exist = bookmarkList.find((a) => a.recruitmentPostId === jobList.recruitmentPostId);
+      const filterd = bookmarkList.filter((a) => a.recruitmentPostId !== jobList.recruitmentPostId);
+      console.log(jobList.recruitmentPostId, bookmarkList);
+      console.log(exist, filterd, " 북마크 존재?");
+      if (exist) {
+        setBookmarkList(filterd);
+        recruitmentApi
+          .removeBookmark(jobList.recruitmentPostId)
+          .then((Response) => {
+            console.log(Response.data);
+            if (Response.data.isSuccess) {
+              setCheckBookmark(!checkBokkmark);
+            }
+          })
+          .catch((Error) => {
+            console.log(Error);
+          });
+      } else {
+        setBookmarkList([...bookmarkList, jobList]);
+        recruitmentApi
+          .addBookmark(jobList.recruitmentPostId)
+          .then((Response) => {
+            console.log(Response.data);
+            if (Response.data.isSuccess) {
+              setCheckBookmark(!checkBokkmark);
+            }
+          })
+          .catch((Error) => {
+            console.log(Error);
+          });
+      }
+    } else {
+      recruitmentApi
+        .removeBookmark(jobList.recruitmentPostId)
+        .then((Response) => {
+          console.log(Response.data);
+          if (Response.data.isSuccess) {
+            renderBookmarkList();
+          }
+        })
+        .catch((Error) => {
+          console.log(Error);
+        });
+    }
+  };
   return (
     <JobCardContainer>
       {" "}
-      <Link to={`/employment/${jobList.compensationApplicant}`}>
+      <Link to={`/employment/${jobList.recruitmentPostId}`}>
         <header
           style={{
             backgroundImage: `url(${jobList.companyRepresentativeImg})`,
           }}
         >
-          <button type="button" className="job-card-button">
-            <BookmarkNoFilled />
+          <button
+            type="button"
+            className="job-card-button"
+            onClick={(e) => {
+              addBookmark(e);
+            }}
+          >
+            {checkBokkmark ? <BookMarkSvg /> : <BookmarkNoFilled />}
           </button>
         </header>
-      <div className="job-card-body">
-        <div className="job-card-position">{jobList.recruitmentPositionName}</div>
-        <div>{jobList.companyName}</div>
-        <div>
-          {/* 응답률 */}
-          <JobTooltipLabel responseRateWord={jobList.companyResponseRateWord}/>
+        <div className="job-card-body">
+          <div className="job-card-position">{isBookmark ? jobList.positionName : jobList.recruitmentPositionName}</div>
+          <div>{jobList.companyName}</div>
+          {!isBookmark && (
+            <div>
+              {/* 응답률 */}
+              <JobTooltipLabel responseRateWord={jobList.companyResponseRateWord} />
+            </div>
+          )}
+          <div className="job-card-company">
+            {!isBookmark && (
+              <>
+                {jobList.region}
+                <span style={{ margin: "0 3px" }}>·</span>
+              </>
+            )}
+            <span>{jobList.country}</span>
+          </div>
+          <div className="job-card-reward">채용보상금 1,000,000원</div>
         </div>
-        <div className="job-card-company">
-          {jobList.region}
-          <span style={{ margin: "0 3px" }}>·</span>
-          <span>{jobList.country}</span>
-        </div>
-        <div className="job-card-reward">채용보상금 1,000,000원</div>
-      </div>
       </Link>
     </JobCardContainer>
   );

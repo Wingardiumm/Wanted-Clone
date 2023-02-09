@@ -55,14 +55,10 @@ function EmployMentList() {
   const [recruitmentList, setRecruitmentList] = useState();
   
   useEffect(()=>{
-    const jwt = localStorage.getItem('jwt')
-    console.log(jwt)
-    axios.get('https://dev.risingserver13forever.shop/app/recruitments',{
-      headers:{
-        "x-access-token":jwt,
-      }
-    })
+    
+    recruitmentApi.getRecruitmentList()
     .then((Response) => {
+      console.log(Response.data)
       if(Response.data.isSuccess){
         setRecruitmentList(Response.data.result)
       } 
@@ -70,6 +66,7 @@ function EmployMentList() {
     .catch((Error) => {
       console.log(Error);
     });
+
   },[])
 
   return (
@@ -79,7 +76,7 @@ function EmployMentList() {
       </div>
       <hr />
       <JobListBookmarkSection>
-        <button>
+        <button type="button">
           <BookMarkSvg />
           <span>북마크 모아보기</span>
           <BookMarArrowkSvg />

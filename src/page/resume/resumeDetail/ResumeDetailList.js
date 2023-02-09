@@ -13,10 +13,10 @@ const ResumeDetailListContainer = styled.div`
     }
 `
 
-function ResumeDetailList({resumeCareerData}) {
+function ResumeDetailList() {
   return (
     <ResumeDetailListContainer>
-        <ResumeCareer resumeCareerData={resumeCareerData?.workExperiences}/>
+        <ResumeCareer/>
         <ResumeEducation/>
         <ResumeDetailSkill/>
         <ResumeAward/>

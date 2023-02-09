@@ -9,6 +9,8 @@ import JobDetailPage from "./page/jobDetail/JobDetailPage";
 import LoginPage from "./page/login/LoginPage";
 import MainPage from "./page/main/MainPage";
 import InsightDetail from "./page/main/section/careerSection/InsightDetail";
+import BookmarkPage from "./page/profilePage/BookmarkPage";
+import MyWantedPage from "./page/profilePage/myPage/MyWantedPage";
 import ResumeDetailPage from "./page/resume/resumeDetail/ResumeDetailPage";
 import ResumePage from "./page/resume/resumeListPage/ResumePage";
 import ResumeLandingPage from "./page/resume/rsumeLanding/ResumeLandingPage";
@@ -48,6 +50,8 @@ function App() {
           <Route path="/resume" element={<ResumePage />} />
           <Route path="/resume/:id" element={<ResumeDetailPage />} />
           <Route path="/employment" element={<EmploymentPage />} />
+          <Route path="/profile/bookmarks" element={<BookmarkPage/>}/>
+          <Route path="/mywanted" element={<MyWantedPage/>}/>
         </Route>
         <Route path="/login" element={<LoginPage />} />
       </Routes>

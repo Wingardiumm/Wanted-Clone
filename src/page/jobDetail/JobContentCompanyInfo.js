@@ -71,13 +71,13 @@ const CompanyInfoWrapper = styled.section`
 }
 `;
 
-function JobContentCompanyInfo() {
+function JobContentCompanyInfo({detailData}) {
   return (
     <CompanyInfoWrapper>
       <button className="company-info-left">
         <div className="company-info-logo"></div>
         <div>
-          <h5>스누아이랩</h5>
+          <h5>{detailData?.companyName}</h5>
           <h6>전문,과학기술</h6>
         </div>
       </button>

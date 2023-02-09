@@ -18,10 +18,12 @@ export const profileModalData = [
   {
     id: 5,
     name: "좋아요",
+    uri: "likes"
   },
   {
     id: 6,
     name: "북마크",
+    uri: "bookmarks"
   },
   {
     id: 7,

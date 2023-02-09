@@ -1,12 +1,13 @@
 import React from 'react'
-import ResumeCareerContentList from './resumeDetailList/ResumeCareerContentList'
+import ResumeAwardList from './resumeDetailList/resumeAward/ResumeAwardList'
 import ResumeDetailTitleAndGuide from './ResumeDetailTitleAndGuide'
 
 function ResumeAward() {
   return (
     <div>
         <ResumeDetailTitleAndGuide index={4}/>
-        <ResumeCareerContentList/>
+        {/* <ResumeCareerContentList/> */}
+        <ResumeAwardList/>
     </div>
   )
 }
